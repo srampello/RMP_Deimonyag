@@ -54,7 +54,15 @@ La carpeta [`telemetry/`](telemetry/) contiene la aplicación Python para:
 - visualizar telemetría de sensores y PID durante una carrera en modo solo lectura;
 - guardar archivos CSV de telemetría para análisis posterior.
 
-La primera versión utiliza datos simulados para desarrollar la interfaz antes de conectar el ESP32-C3 por Wi-Fi.
+La aplicación ya dispone de backend Wi‑Fi real por WebSocket para el ESP32-C3 y mantiene el simulador como alternativa de desarrollo.
+
+## Firmware Wi‑Fi
+
+La primera integración ESP32 ↔ PC se encuentra en:
+
+[`firmware/Deimonyag_WiFi/`](firmware/Deimonyag_WiFi/)
+
+El ESP32 crea el AP `DEIMONYAG` y expone el WebSocket en `ws://192.168.4.1:81`.
 
 ## Hardware — revisión 2026-09-12
 
@@ -68,6 +76,7 @@ Los esquemáticos de **Main Board** y **barra de 12 sensores** se visualizan des
 - [Conexiones actuales](docs/CONEXIONES.md)
 - [Hardware](docs/HARDWARE.md)
 - [Interfaz PC](telemetry/README.md)
+- [Protocolo Wi‑Fi](docs/PROTOCOL_WIFI.md)
 - [Changelog](CHANGELOG.md)
 - [Visor interactivo](https://srampello.github.io/RMP_Deimonyag/)
 
@@ -82,6 +91,7 @@ RMP_Deimonyag/
 │   └── previews/
 ├── images/
 ├── firmware/
+│   └── Deimonyag_WiFi/
 ├── telemetry/
 │   ├── pages/
 │   └── logs/
