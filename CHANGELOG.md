@@ -17,6 +17,12 @@ Todos los cambios relevantes del proyecto Deimonyag se documentan en este archiv
 - EDF27 brushless + ESC.
 - LiPo 3S 450 mAh 75C XT30.
 
+### Documentación visual
+- Se agregan exportaciones SVG de los dos esquemáticos de EasyEDA.
+- Se agregan vistas PCB Top y Bottom en PDF vectorial.
+- Se agrega `docs/HARDWARE.md` para visualizar esquemáticos y acceder a las PCB desde GitHub.
+- Se mantiene `docs/hardware-viewer.html` preparado para navegación interactiva con zoom mediante GitHub Pages.
+
 ## [0.1]
 
 ### Inicial
