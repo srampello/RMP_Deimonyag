@@ -46,6 +46,16 @@ Repositorio principal de **Deimonyag**, robot seguidor de línea de competición
 | 20 | MicroStart |
 | 21 | Botón de estrategia |
 
+## Interfaz PC — control y telemetría
+
+La carpeta [`telemetry/`](telemetry/) contiene la aplicación Python para:
+
+- realizar pruebas de banco de motores, EDF27 y sensores;
+- visualizar telemetría de sensores y PID durante una carrera en modo solo lectura;
+- guardar archivos CSV de telemetría para análisis posterior.
+
+La primera versión utiliza datos simulados para desarrollar la interfaz antes de conectar el ESP32-C3 por Wi-Fi.
+
 ## Hardware — revisión 2026-09-12
 
 Los esquemáticos de **Main Board** y **barra de 12 sensores** se visualizan desde el visor de GitHub Pages, evitando abrir directamente los archivos de soporte utilizados por la página.
@@ -57,6 +67,7 @@ Los esquemáticos de **Main Board** y **barra de 12 sensores** se visualizan des
 
 - [Conexiones actuales](docs/CONEXIONES.md)
 - [Hardware](docs/HARDWARE.md)
+- [Interfaz PC](telemetry/README.md)
 - [Changelog](CHANGELOG.md)
 - [Visor interactivo](https://srampello.github.io/RMP_Deimonyag/)
 
@@ -71,9 +82,12 @@ RMP_Deimonyag/
 │   └── previews/
 ├── images/
 ├── firmware/
+├── telemetry/
+│   ├── pages/
+│   └── logs/
 ├── cad/
 ├── bom/
 └── media/
 ```
 
-El objetivo es mantener en un único repositorio los esquemáticos, documentación, firmware, CAD, BOM y archivos de fabricación de Deimonyag.
+El objetivo es mantener en un único repositorio los esquemáticos, documentación, firmware, CAD, BOM, telemetría y archivos de fabricación de Deimonyag.
