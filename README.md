@@ -1,84 +1,81 @@
 # RMP Deimonyag
 
-Repositorio principal del robot **Deimonyag**, seguidor de línea de competición con sistema de succión.
+Repositorio principal de **Deimonyag**, robot seguidor de línea de competición con sistema de succión.
 
-## Estado actual
+## Configuración actual
 
-Proyecto en desarrollo. Esta rama contiene la documentación y los archivos base del diseño electrónico, mecánico y de firmware.
-
-## Configuración definida
-
-- **Microcontrolador:** ESP32-C3 Super Mini
-- **Sensores de línea:** 12 × QRE1113GR en barra curva
-- **Multiplexor:** CD74HC4067
-- **Drivers de tracción:** 2 × IFX9201SG
-- **Motores de tracción:** 2 × JSumo ProFast 12 V 3600 RPM
-- **Sistema de succión:** EDF27 brushless + ESC
-- **Batería:** LiPo 3S 450 mAh 75C XT30
-- **Regulación de lógica:** Matek MICRO BEC 6–30 V ajustado a 5 V
-- **Control de largada:** MicroStart
-- **Interfaz:** botón de estrategia + LEDs indicadores
+- ESP32-C3 Super Mini
+- 12 × QRE1113GR + CD74HC4067
+- 2 × IFX9201SG
+- 2 × JSumo ProFast 12 V 3600 RPM
+- EDF27 brushless + ESC
+- LiPo 3S 450 mAh 75C XT30
+- Matek MICRO BEC 6–30 V ajustado a 5 V
+- MicroStart, botón de estrategia y LEDs indicadores
 
 ## Alimentación
 
-- **VBAT / 3S:** alimentación directa de motores de tracción y sistema EDF/ESC.
-- **5 V:** generados por el Matek MICRO BEC para la ESP32-C3 Super Mini y LEDs IR de los QRE1113GR.
-- **3,3 V:** rail de la ESP32-C3 para CD74HC4067 y pull-ups de los fototransistores QRE1113GR.
-- **GND:** común en todo el sistema.
+- **VBAT / 3S:** motores de tracción y EDF/ESC
+- **5 V:** Matek MICRO BEC → ESP32-C3 + LEDs IR de los QRE1113GR
+- **3,3 V:** ESP32-C3 → CD74HC4067 + pull-ups de los QRE1113GR
+- **GND:** común
 
-## Mapa de GPIO actual
+## GPIO
 
 | GPIO | Función |
 |---:|---|
-| GPIO0 | MUX S3 |
-| GPIO1 | MUX S2 |
-| GPIO2 | MUX S1 |
-| GPIO3 | MUX S0 |
-| GPIO4 | MUX SIG / ADC |
-| GPIO5 | Motor 1 PWM |
-| GPIO6 | Motor 1 DIR |
-| GPIO7 | Motor 2 PWM |
-| GPIO8 | Motor 2 DIR |
-| GPIO9 | LED indicador |
-| GPIO10 | ESC / EDF27 |
-| GPIO20 | MicroStart |
-| GPIO21 | Botón de estrategia |
+| 0 | MUX S3 |
+| 1 | MUX S2 |
+| 2 | MUX S1 |
+| 3 | MUX S0 |
+| 4 | MUX SIG / ADC |
+| 5 | Motor 1 PWM |
+| 6 | Motor 1 DIR |
+| 7 | Motor 2 PWM |
+| 8 | Motor 2 DIR |
+| 9 | LED indicador |
+| 10 | ESC / EDF27 |
+| 20 | MicroStart |
+| 21 | Botón de estrategia |
 
-## Barra de sensores
+## Hardware — revisión 2026-09-12
 
-Configuración mecánica actual:
+### Main Board
 
-- 12 sensores QRE1113GR
-- Radio del arco: **95 mm**
-- Separación angular: **4,8°**
-- Q1 ubicado en el extremo izquierdo
-- Q12 ubicado en el extremo derecho
-- Q6 y Q7 simétricos respecto del eje central
-- Sensores orientados radialmente siguiendo el arco
+[![Esquemático Main Board](hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg)](hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg)
 
-Configuración eléctrica por sensor:
+### Barra de 12 sensores
 
-- LED IR: 5 V mediante resistencia de 150 Ω
-- Fototransistor: pull-up de 10 kΩ a 3,3 V
-- Emisor del fototransistor a GND
-- Señal de cada sensor hacia un canal del CD74HC4067
+[![Esquemático barra de sensores](hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)](hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)
 
-## Estructura del repositorio
+### PCB
+
+- [PCB Top — PDF vectorial](hardware/previews/PCB_PCB1_2026-09-12_Top.pdf)
+- [PCB Bottom — PDF vectorial](hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf)
+- [Página completa de hardware](docs/HARDWARE.md)
+
+Los SVG se pueden abrir y ampliar sin pérdida de calidad. Los PDF conservan el detalle vectorial de las PCB.
+
+## Documentación
+
+- [Conexiones actuales](docs/CONEXIONES.md)
+- [Hardware](docs/HARDWARE.md)
+- [Changelog](CHANGELOG.md)
+- [Visor interactivo](docs/hardware-viewer.html) — preparado para GitHub Pages
+
+## Estructura
 
 ```text
 RMP_Deimonyag/
-├── README.md
-├── CHANGELOG.md
 ├── docs/
 ├── hardware/
 │   ├── main-board/
-│   └── sensor-bar/
+│   ├── sensor-bar/
+│   └── previews/
 ├── firmware/
 ├── cad/
 ├── bom/
 └── media/
 ```
 
-## Objetivo
-
-Mantener en un único repositorio el historial completo de Deimonyag: esquemáticos, PCB, documentación, firmware, CAD, BOM, archivos de fabricación y revisiones del proyecto.
+El objetivo es mantener en un único repositorio los esquemáticos, PCB, documentación, firmware, CAD, BOM y archivos de fabricación de Deimonyag.
