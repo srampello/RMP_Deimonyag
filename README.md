@@ -40,28 +40,19 @@ Repositorio principal de **Deimonyag**, robot seguidor de línea de competición
 
 ## Hardware — revisión 2026-09-12
 
-### Main Board
+Los esquemáticos de **Main Board** y **barra de 12 sensores** se visualizan desde el visor de GitHub Pages, evitando abrir directamente los archivos de soporte utilizados por la página.
 
-[![Esquemático Main Board](hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg)](hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg)
-
-### Barra de 12 sensores
-
-[![Esquemático barra de sensores](hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)](hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)
-
-### PCB
-
+- [Visor interactivo de hardware](https://srampello.github.io/RMP_Deimonyag/)
 - [PCB Top — PDF vectorial](hardware/previews/PCB_PCB1_2026-09-12_Top.pdf)
 - [PCB Bottom — PDF vectorial](hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf)
-- [Página completa de hardware](docs/HARDWARE.md)
-
-Los SVG se pueden abrir y ampliar sin pérdida de calidad. Los PDF conservan el detalle vectorial de las PCB.
+- [Página de hardware](docs/HARDWARE.md)
 
 ## Documentación
 
 - [Conexiones actuales](docs/CONEXIONES.md)
 - [Hardware](docs/HARDWARE.md)
 - [Changelog](CHANGELOG.md)
-- [Visor interactivo](docs/hardware-viewer.html) — preparado para GitHub Pages
+- [Visor interactivo](https://srampello.github.io/RMP_Deimonyag/)
 
 ## Estructura
 
