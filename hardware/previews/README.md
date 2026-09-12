@@ -1,16 +1,20 @@
 # Previsualizaciones de hardware
 
-Esta carpeta contiene los archivos visuales exportados desde EasyEDA para poder revisar el hardware directamente desde GitHub sin abrir el proyecto `.epro`.
+Revisión exportada desde EasyEDA el 2026-09-12.
 
-## Archivos de esta revisión
+## Esquemático — Main Board
 
-Subir aquí, sin cambiar los nombres, los siguientes archivos exportados el 2026-09-12:
+[![Main Board](SCH_Deimonyag_1-Main_Board_2026-09-12.svg)](SCH_Deimonyag_1-Main_Board_2026-09-12.svg)
 
-- `SCH_Deimonyag_1-Main_Board_2026-09-12.svg` — esquemático de la placa principal.
-- `SCH_Deimonyag_2-12_Sensor_2026-09-12.svg` — esquemático de la barra de 12 sensores.
-- `PCB_PCB1_2026-09-12_Top.pdf` — vista superior de la PCB.
-- `PCB_PCB1_2026-09-12_Bottom.pdf` — vista inferior de la PCB.
+## Esquemático — Barra de 12 sensores
 
-Los archivos SVG permiten ampliar el esquemático sin pérdida de calidad. Los PDF conservan la PCB en formato vectorial y pueden abrirse con zoom.
+[![Barra de 12 sensores](SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)](SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)
 
-> El proyecto editable de EasyEDA debe conservarse por separado dentro de `hardware/main-board/easyeda/`.
+## PCB
+
+- [PCB Top — PDF vectorial](PCB_PCB1_2026-09-12_Top.pdf)
+- [PCB Bottom — PDF vectorial](PCB_PCB1_2026-09-12_Bottom.pdf)
+
+Los SVG se pueden abrir a tamaño completo y ampliar sin pérdida de calidad. Los PDF conservan el detalle vectorial y permiten zoom desde el visor del navegador.
+
+> El proyecto editable de EasyEDA se conserva por separado en la estructura de hardware del repositorio.
