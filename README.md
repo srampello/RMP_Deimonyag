@@ -43,8 +43,6 @@ Repositorio principal de **Deimonyag**, robot seguidor de línea de competición
 Los esquemáticos de **Main Board** y **barra de 12 sensores** se visualizan desde el visor de GitHub Pages, evitando abrir directamente los archivos de soporte utilizados por la página.
 
 - [Visor interactivo de hardware](https://srampello.github.io/RMP_Deimonyag/)
-- [PCB Top — PDF vectorial](hardware/previews/PCB_PCB1_2026-09-12_Top.pdf)
-- [PCB Bottom — PDF vectorial](hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf)
 - [Página de hardware](docs/HARDWARE.md)
 
 ## Documentación
@@ -69,4 +67,4 @@ RMP_Deimonyag/
 └── media/
 ```
 
-El objetivo es mantener en un único repositorio los esquemáticos, PCB, documentación, firmware, CAD, BOM y archivos de fabricación de Deimonyag.
+El objetivo es mantener en un único repositorio los esquemáticos, documentación, firmware, CAD, BOM y archivos de fabricación de Deimonyag.
