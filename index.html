@@ -11,20 +11,18 @@
   header{padding:18px 22px;border-bottom:1px solid #2a2f39;background:#11151a;position:sticky;top:0;z-index:5}
   h1{font-size:20px;margin:0 0 12px}
   .tabs{display:flex;gap:8px;flex-wrap:wrap}
-  button,.open-original{border:1px solid #343b46;background:#181d24;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;text-decoration:none;font-size:14px}
+  button{border:1px solid #343b46;background:#181d24;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px}
   button.active{background:#fff;color:#111}
   main{padding:16px}
-  .info-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 10px}
-  .hint{font-size:13px;color:#aeb6c2;margin:0}
+  .hint{font-size:13px;color:#aeb6c2;margin:0 0 10px}
   .viewer{height:calc(100vh - 155px);min-height:520px;border:1px solid #2a2f39;border-radius:10px;background:#fff;overflow:hidden;position:relative}
   .svg-stage{width:100%;height:100%;overflow:hidden;cursor:grab;position:relative;background:#fff}
   .svg-stage.dragging{cursor:grabbing}
   .svg-stage img{position:absolute;left:50%;top:50%;max-width:none;max-height:none;transform-origin:center center;user-select:none;-webkit-user-drag:none;background:#fff}
-  iframe{width:100%;height:100%;border:0;background:#fff}
-  .hidden{display:none!important}
   .toolbar{position:absolute;right:12px;top:12px;z-index:3;display:flex;gap:6px}
   .toolbar button{padding:6px 9px;background:#111d;color:#fff;backdrop-filter:blur(6px)}
   .error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;color:#111;background:#fff;text-align:center;z-index:2}
+  .hidden{display:none!important}
   @media(max-width:700px){header{padding:14px}.viewer{height:68vh;min-height:440px}main{padding:10px}}
 </style>
 </head>
@@ -34,67 +32,36 @@
   <div class="tabs">
     <button type="button" data-view="main" class="active">Esquemático · Main Board</button>
     <button type="button" data-view="sensor">Esquemático · 12 Sensor</button>
-    <button type="button" data-view="top">PCB · Top</button>
-    <button type="button" data-view="bottom">PCB · Bottom</button>
   </div>
 </header>
 <main>
-  <div class="info-row">
-    <p class="hint" id="hint">Cargando…</p>
-    <a class="open-original hidden" id="open-original" target="_blank" rel="noopener">Abrir PDF original ↗</a>
-  </div>
+  <p class="hint" id="hint">Cargando…</p>
   <section class="viewer">
-    <div class="toolbar" id="toolbar"><button type="button" id="minus">−</button><button type="button" id="reset">100%</button><button type="button" id="plus">+</button></div>
+    <div class="toolbar"><button type="button" id="minus">−</button><button type="button" id="reset">100%</button><button type="button" id="plus">+</button></div>
     <div id="svg-stage" class="svg-stage">
       <img id="svg-image" alt="Vista del hardware">
       <div id="svg-error" class="error hidden">No se pudo cargar esta vista dentro del visor.</div>
     </div>
-    <iframe id="pdf-frame" class="hidden" title="Vista PCB PDF"></iframe>
   </section>
 </main>
 <script>
 const files={
  main:'hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg',
- sensor:'hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg',
- top:'hardware/previews/PCB_PCB1_2026-09-12_Top.pdf#view=FitH',
- bottom:'hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf#view=FitH'
-};
-const originals={
- top:'hardware/previews/PCB_PCB1_2026-09-12_Top.pdf',
- bottom:'hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf'
+ sensor:'hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg'
 };
 const stage=document.getElementById('svg-stage');
 const img=document.getElementById('svg-image');
-const frame=document.getElementById('pdf-frame');
-const toolbar=document.getElementById('toolbar');
 const hint=document.getElementById('hint');
-const openOriginal=document.getElementById('open-original');
 const svgError=document.getElementById('svg-error');
 let scale=1,x=0,y=0,drag=false,sx=0,sy=0;
 function apply(){img.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + ${y}px)) scale(${scale})`;document.getElementById('reset').textContent=Math.round(scale*100)+'%'}
 function reset(){scale=1;x=0;y=0;apply()}
 function show(kind){
  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===kind));
- const isPdf=kind==='top'||kind==='bottom';
- if(isPdf){
-   stage.classList.add('hidden');
-   toolbar.classList.add('hidden');
-   frame.classList.remove('hidden');
-   openOriginal.classList.remove('hidden');
-   openOriginal.href=originals[kind];
-   frame.src=files[kind];
-   hint.textContent='PCB en PDF vectorial. Si el visor integrado no aparece, abrí el PDF original.';
- } else {
-   frame.classList.add('hidden');
-   frame.src='about:blank';
-   openOriginal.classList.add('hidden');
-   stage.classList.remove('hidden');
-   toolbar.classList.remove('hidden');
-   svgError.classList.add('hidden');
-   hint.textContent='Cargando esquemático…';
-   img.src=files[kind];
-   reset();
- }
+ svgError.classList.add('hidden');
+ hint.textContent='Cargando esquemático…';
+ img.src=files[kind];
+ reset();
 }
 img.addEventListener('load',()=>{svgError.classList.add('hidden');hint.textContent='Rueda del mouse: zoom · arrastrar: mover · doble clic: restablecer.'});
 img.addEventListener('error',()=>{svgError.classList.remove('hidden');hint.textContent='No se pudo cargar el esquemático dentro del visor.'});
