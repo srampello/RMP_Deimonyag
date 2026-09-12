@@ -63,6 +63,21 @@ Configuración eléctrica por sensor:
 - Emisor del fototransistor a GND
 - Señal de cada sensor hacia un canal del CD74HC4067
 
+## Visualización del hardware
+
+Los archivos visuales exportados desde EasyEDA se guardan en `hardware/previews/`.
+
+Una vez subidos los archivos de la revisión actual, GitHub puede mostrar los esquemáticos SVG directamente y los PDF de PCB se pueden abrir con zoom.
+
+Archivos esperados para la revisión del 2026-09-12:
+
+- `SCH_Deimonyag_1-Main_Board_2026-09-12.svg`
+- `SCH_Deimonyag_2-12_Sensor_2026-09-12.svg`
+- `PCB_PCB1_2026-09-12_Top.pdf`
+- `PCB_PCB1_2026-09-12_Bottom.pdf`
+
+También se agregó `docs/hardware-viewer.html`, preparado para ofrecer zoom y desplazamiento sobre los esquemáticos y acceso a las vistas Top/Bottom de la PCB cuando se publique el repositorio mediante GitHub Pages.
+
 ## Estructura del repositorio
 
 ```text
@@ -72,7 +87,8 @@ RMP_Deimonyag/
 ├── docs/
 ├── hardware/
 │   ├── main-board/
-│   └── sensor-bar/
+│   ├── sensor-bar/
+│   └── previews/
 ├── firmware/
 ├── cad/
 ├── bom/
