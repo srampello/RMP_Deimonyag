@@ -59,12 +59,13 @@ static const uint8_t PIN_EDF = 10;
 // ------------------------------------------------------------
 // PWM
 // Arduino-ESP32 core 3.x: ledcAttach(pin, freq, resolution)
+// ESP32-C3 admite hasta 14 bits de resolución LEDC.
 // ------------------------------------------------------------
 static const uint32_t MOTOR_PWM_FREQ = 20000;
 static const uint8_t MOTOR_PWM_BITS = 8;
 
 static const uint32_t ESC_PWM_FREQ = 50;
-static const uint8_t ESC_PWM_BITS = 16;
+static const uint8_t ESC_PWM_BITS = 14;
 static const uint16_t ESC_MIN_US = 1000;
 static const uint16_t ESC_MAX_US = 2000;
 
