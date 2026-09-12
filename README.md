@@ -2,6 +2,14 @@
 
 Repositorio principal de **Deimonyag**, robot seguidor de línea de competición con sistema de succión.
 
+<p align="center">
+  <img src="images/deimonyag%20logo.png" alt="Logo Deimonyag" width="520">
+</p>
+
+<p align="center">
+  <img src="images/deimonyag.png" alt="Deimonyag" width="700">
+</p>
+
 ## Configuración actual
 
 - ESP32-C3 Super Mini
@@ -61,6 +69,7 @@ RMP_Deimonyag/
 │   ├── main-board/
 │   ├── sensor-bar/
 │   └── previews/
+├── images/
 ├── firmware/
 ├── cad/
 ├── bom/
