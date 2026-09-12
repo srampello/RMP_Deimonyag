@@ -1,8 +1,10 @@
+import os
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QTabWidget
 
 from communication import SimulatorBackend
+from communication_real import Esp32Backend
 from pages.telemetry_page import TelemetryPage
 from pages.test_page import TestPage
 
@@ -90,9 +92,15 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Deimonyag Control & Telemetry")
         self.resize(1400, 820)
 
-        # Primera etapa: backend simulado.
-        # En la siguiente etapa se reemplazará por comunicación Wi-Fi con el ESP32.
-        self.backend = SimulatorBackend(self)
+        backend_kind = os.getenv("DEIMONYAG_BACKEND", "esp32").strip().lower()
+        ws_url = os.getenv("DEIMONYAG_WS", "ws://192.168.4.1:81")
+
+        if backend_kind == "simulator":
+            self.backend = SimulatorBackend(self)
+            self.setWindowTitle("Deimonyag Control & Telemetry - SIMULADOR")
+        else:
+            self.backend = Esp32Backend(ws_url, self)
+            self.setWindowTitle("Deimonyag Control & Telemetry - ESP32")
 
         self.tabs = QTabWidget()
         self.test_page = TestPage(self.backend)
@@ -111,7 +119,8 @@ class MainWindow(QMainWindow):
             self.test_page.set_test_mode_active(True)
             self.telemetry_page.set_telemetry_mode_active(False)
         else:
-            # El backend fuerza STOP antes de entrar en modo telemetría.
+            # Antes de TELEMETRY el backend real ordena STOP solo si estaba en TEST.
+            # Una vez en TELEMETRY no se envían cambios de actuadores durante carrera.
             self.backend.set_mode(self.backend.MODE_TELEMETRY)
             self.test_page.set_test_mode_active(False)
             self.telemetry_page.set_telemetry_mode_active(True)
