@@ -41,13 +41,13 @@
 <main>
   <div class="info-row">
     <p class="hint" id="hint">Cargando…</p>
-    <a class="open-original" id="open-original" target="_blank" rel="noopener">Abrir archivo original ↗</a>
+    <a class="open-original hidden" id="open-original" target="_blank" rel="noopener">Abrir PDF original ↗</a>
   </div>
   <section class="viewer">
     <div class="toolbar" id="toolbar"><button type="button" id="minus">−</button><button type="button" id="reset">100%</button><button type="button" id="plus">+</button></div>
     <div id="svg-stage" class="svg-stage">
       <img id="svg-image" alt="Vista del hardware">
-      <div id="svg-error" class="error hidden">No se pudo cargar esta vista. Usá “Abrir archivo original” para verla directamente.</div>
+      <div id="svg-error" class="error hidden">No se pudo cargar esta vista dentro del visor.</div>
     </div>
     <iframe id="pdf-frame" class="hidden" title="Vista PCB PDF"></iframe>
   </section>
@@ -60,8 +60,6 @@ const files={
  bottom:'hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf#view=FitH'
 };
 const originals={
- main:'hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg',
- sensor:'hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg',
  top:'hardware/previews/PCB_PCB1_2026-09-12_Top.pdf',
  bottom:'hardware/previews/PCB_PCB1_2026-09-12_Bottom.pdf'
 };
@@ -77,17 +75,19 @@ function apply(){img.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + 
 function reset(){scale=1;x=0;y=0;apply()}
 function show(kind){
  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===kind));
- openOriginal.href=originals[kind];
  const isPdf=kind==='top'||kind==='bottom';
  if(isPdf){
    stage.classList.add('hidden');
    toolbar.classList.add('hidden');
    frame.classList.remove('hidden');
+   openOriginal.classList.remove('hidden');
+   openOriginal.href=originals[kind];
    frame.src=files[kind];
-   hint.textContent='PCB en PDF vectorial. Si el visor integrado no aparece, abrí el archivo original con el botón de la derecha.';
+   hint.textContent='PCB en PDF vectorial. Si el visor integrado no aparece, abrí el PDF original.';
  } else {
    frame.classList.add('hidden');
    frame.src='about:blank';
+   openOriginal.classList.add('hidden');
    stage.classList.remove('hidden');
    toolbar.classList.remove('hidden');
    svgError.classList.add('hidden');
@@ -97,7 +97,7 @@ function show(kind){
  }
 }
 img.addEventListener('load',()=>{svgError.classList.add('hidden');hint.textContent='Rueda del mouse: zoom · arrastrar: mover · doble clic: restablecer.'});
-img.addEventListener('error',()=>{svgError.classList.remove('hidden');hint.textContent='No se pudo cargar el SVG dentro del visor.'});
+img.addEventListener('error',()=>{svgError.classList.remove('hidden');hint.textContent='No se pudo cargar el esquemático dentro del visor.'});
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
 stage.addEventListener('wheel',e=>{e.preventDefault();const factor=e.deltaY<0?1.12:0.89;scale=Math.min(12,Math.max(.2,scale*factor));apply()},{passive:false});
 stage.addEventListener('mousedown',e=>{drag=true;stage.classList.add('dragging');sx=e.clientX-x;sy=e.clientY-y});
