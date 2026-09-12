@@ -2,19 +2,15 @@
 
 Revisión exportada desde EasyEDA el 2026-09-12.
 
-## Esquemático — Main Board
+Los esquemáticos de **Main Board** y **barra de 12 sensores** se muestran desde el visor interactivo de GitHub Pages:
 
-[![Main Board](SCH_Deimonyag_1-Main_Board_2026-09-12.svg)](SCH_Deimonyag_1-Main_Board_2026-09-12.svg)
-
-## Esquemático — Barra de 12 sensores
-
-[![Barra de 12 sensores](SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)](SCH_Deimonyag_2-12_Sensor_2026-09-12.svg)
+https://srampello.github.io/RMP_Deimonyag/
 
 ## PCB
 
 - [PCB Top — PDF vectorial](PCB_PCB1_2026-09-12_Top.pdf)
 - [PCB Bottom — PDF vectorial](PCB_PCB1_2026-09-12_Bottom.pdf)
 
-Los SVG se pueden abrir a tamaño completo y ampliar sin pérdida de calidad. Los PDF conservan el detalle vectorial y permiten zoom desde el visor del navegador.
+Los archivos gráficos de soporte de los esquemáticos se conservan en esta carpeta únicamente para alimentar el visor web; no se enlazan directamente desde la documentación porque GitHub puede mostrar error al abrirlos como archivo independiente.
 
 > El proyecto editable de EasyEDA se conserva por separado en la estructura de hardware del repositorio.
