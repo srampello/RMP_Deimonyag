@@ -48,7 +48,7 @@
   </section>
 
   <section class="feature">
-    <div class="feature-media"><img src="hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg" alt="Main Board Deimonyag"></div>
+    <div class="feature-media component-media"><img src="images/components/esp32-c3-super-mini.png" alt="ESP32-C3 Super Mini"></div>
     <div class="feature-copy">
       <div class="eyebrow">Procesamiento</div>
       <h2>ESP32-C3 Super Mini</h2>
@@ -59,7 +59,12 @@
 
   <section class="dark-panel">
     <section class="feature reverse">
-      <div class="feature-media"><img src="images/deimonyag.png" alt="Sistema de tracción Deimonyag"></div>
+      <div class="feature-media component-media">
+        <div class="component-pair">
+          <figure><img src="images/components/motor-profast.png" alt="Motor JSumo ProFast"><figcaption>JSumo ProFast · 12 V · 3600 RPM</figcaption></figure>
+          <figure><img src="images/components/ifx9201sg.png" alt="Driver IFX9201SG"><figcaption>IFX9201SG · driver de potencia</figcaption></figure>
+        </div>
+      </div>
       <div class="feature-copy">
         <div class="eyebrow">Drivetrain</div>
         <h2>Tracción independiente de alta respuesta.</h2>
@@ -71,9 +76,9 @@
   </section>
 
   <section class="feature">
-    <div class="feature-media"><img src="hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg" alt="Barra de sensores Deimonyag"></div>
+    <div class="feature-media component-media"><img src="images/components/qre1113gr.png" alt="Sensor QRE1113GR"></div>
     <div class="feature-copy">
-      <div class="eyebrow">VISION</div>
+      <div class="eyebrow">Visión</div>
       <h2>Barra curva de 12 sensores.</h2>
       <p>Doce QRE1113GR trabajan sobre una geometría radial. El CD74HC4067 permite leerlos usando cuatro líneas de selección y un único ADC.</p>
       <p>Los LEDs IR se alimentan desde 5 V; el multiplexor y los pull-ups analógicos trabajan a 3,3 V para mantener la lectura dentro del rango seguro de la ESP32-C3.</p>
@@ -83,15 +88,18 @@
   </section>
 
   <section class="dark-panel">
-    <section class="editorial">
-      <div class="eyebrow">Succión</div>
-      <h2 class="section-title">EDF27: convertir presión en adherencia.</h2>
-      <p class="section-copy">La EDF no se utiliza como propulsor. Su función es reducir la presión bajo el chasis para aumentar la carga normal efectiva sobre la pista. El rendimiento real dependerá de la presión estática disponible, el área efectiva de la cámara y las fugas.</p>
-      <div class="grid two" style="margin-top:34px">
-        <div class="card"><div class="big mono">F = ΔP · A</div><h3>Fuerza de succión</h3><p>Una mayor diferencia de presión o una mayor superficie efectiva incrementan la fuerza perpendicular sobre el robot.</p></div>
-        <div class="card"><div class="big mono">Fmax ≈ μ · N</div><h3>Más adherencia</h3><p>Con succión, N puede aproximarse como mg + Fsucción, aumentando la fuerza longitudinal y lateral disponible.</p></div>
+    <section class="feature reverse">
+      <div class="feature-media component-media"><img src="images/components/edf27.png" alt="EDF27 brushless"></div>
+      <div class="feature-copy">
+        <div class="eyebrow">Succión</div>
+        <h2>EDF27: convertir presión en adherencia.</h2>
+        <p>La EDF no se utiliza como propulsor. Su función es reducir la presión bajo el chasis para aumentar la carga normal efectiva sobre la pista. El rendimiento real dependerá de la presión estática disponible, el área efectiva de la cámara y las fugas.</p>
+        <div class="mini-metrics">
+          <div><strong class="mono">F = ΔP · A</strong><span>Fuerza de succión</span></div>
+          <div><strong class="mono">Fmax ≈ μ · N</strong><span>Adherencia disponible</span></div>
+        </div>
+        <div class="callout" style="margin-top:20px">La distancia al piso, el sellado del plenum, la rigidez del chasis y una descarga de aire sin recirculación son factores críticos del sistema.</div>
       </div>
-      <div class="callout" style="margin-top:20px">La distancia al piso, el sellado del plenum, la rigidez del chasis y una descarga de aire sin recirculación son factores críticos del sistema.</div>
     </section>
   </section>
 
