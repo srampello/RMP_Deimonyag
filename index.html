@@ -3,78 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RMP Deimonyag · Hardware Viewer</title>
-<style>
-  :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color-scheme:dark}
-  *{box-sizing:border-box}
-  body{margin:0;background:#0b0d10;color:#f2f4f8}
-  header{padding:18px 22px;border-bottom:1px solid #2a2f39;background:#11151a;position:sticky;top:0;z-index:5}
-  h1{font-size:20px;margin:0 0 12px}
-  .tabs{display:flex;gap:8px;flex-wrap:wrap}
-  button{border:1px solid #343b46;background:#181d24;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px}
-  button.active{background:#fff;color:#111}
-  main{padding:16px}
-  .hint{font-size:13px;color:#aeb6c2;margin:0 0 10px}
-  .viewer{height:calc(100vh - 155px);min-height:520px;border:1px solid #2a2f39;border-radius:10px;background:#fff;overflow:hidden;position:relative}
-  .svg-stage{width:100%;height:100%;overflow:hidden;cursor:grab;position:relative;background:#fff}
-  .svg-stage.dragging{cursor:grabbing}
-  .svg-stage img{position:absolute;left:50%;top:50%;max-width:none;max-height:none;transform-origin:center center;user-select:none;-webkit-user-drag:none;background:#fff}
-  .toolbar{position:absolute;right:12px;top:12px;z-index:3;display:flex;gap:6px}
-  .toolbar button{padding:6px 9px;background:#111d;color:#fff;backdrop-filter:blur(6px)}
-  .error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;color:#111;background:#fff;text-align:center;z-index:2}
-  .hidden{display:none!important}
-  @media(max-width:700px){header{padding:14px}.viewer{height:68vh;min-height:440px}main{padding:10px}}
-</style>
+<meta name="description" content="Deimonyag, robot seguidor de línea de competición con sistema de succión de RMP Robotics.">
+<title>Deimonyag · RMP Robotics</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-  <h1>RMP Deimonyag · Hardware Viewer</h1>
-  <div class="tabs">
-    <button type="button" data-view="main" class="active">Esquemático · Main Board</button>
-    <button type="button" data-view="sensor">Esquemático · 12 Sensor</button>
-  </div>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark"></span> RMP ROBOTICS</a>
+    <div class="nav-links">
+      <a class="active" href="index.html">Inicio</a>
+      <a href="robot.html">El robot</a>
+      <a href="schematics.html">Esquemáticos</a>
+      <a href="https://github.com/srampello/RMP_Deimonyag">GitHub</a>
+    </div>
+  </nav>
 </header>
+
 <main>
-  <p class="hint" id="hint">Cargando…</p>
-  <section class="viewer">
-    <div class="toolbar"><button type="button" id="minus">−</button><button type="button" id="reset">100%</button><button type="button" id="plus">+</button></div>
-    <div id="svg-stage" class="svg-stage">
-      <img id="svg-image" alt="Vista del hardware">
-      <div id="svg-error" class="error hidden">No se pudo cargar esta vista dentro del visor.</div>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">RMP Robotics · Line Follower</div>
+      <h1>DEIMONYAG</h1>
+      <div class="tagline">THE DEMON ON THE TRACK</div>
+      <p class="lead">Robot seguidor de línea de competición desarrollado alrededor de una ESP32-C3, 12 sensores QRE1113GR, tracción dual con IFX9201SG y un sistema de succión mediante EDF27.</p>
+      <div class="actions">
+        <a class="btn primary" href="robot.html">Conocer el robot</a>
+        <a class="btn" href="schematics.html">Ver esquemáticos</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="images/deimonyag%20logo.png" alt="Logo Deimonyag">
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="grid">
+      <a class="card" href="robot.html">
+        <span class="pill">ROBOT</span>
+        <div class="big" style="margin-top:14px">Arquitectura completa</div>
+        <p>Hardware, alimentación, GPIO, sensores, motores, EDF27, firmware y telemetría.</p>
+      </a>
+      <a class="card" href="schematics.html">
+        <span class="pill">HARDWARE</span>
+        <div class="big" style="margin-top:14px">Esquemáticos interactivos</div>
+        <p>Main Board y barra de 12 sensores con zoom y desplazamiento.</p>
+      </a>
+      <a class="card" href="https://github.com/srampello/RMP_Deimonyag">
+        <span class="pill">REPOSITORIO</span>
+        <div class="big" style="margin-top:14px">Desarrollo abierto</div>
+        <p>Firmware, documentación, telemetría, hardware y archivos del proyecto.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Diseñado para competir</h2>
+    <p class="section-copy">Deimonyag combina control rápido, sensado analógico de alta densidad y succión activa para aumentar la carga normal sobre la pista y aprovechar mejor la adherencia disponible.</p>
+    <div class="spec-grid">
+      <div class="spec"><strong>MCU</strong><span>ESP32-C3 Super Mini</span></div>
+      <div class="spec"><strong>Sensores</strong><span>12 × QRE1113GR</span></div>
+      <div class="spec"><strong>Tracción</strong><span>2 × JSumo ProFast</span></div>
+      <div class="spec"><strong>Succión</strong><span>EDF27 brushless + ESC</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid two">
+      <div class="card image-card"><img src="images/deimonyag.png" alt="Deimonyag"></div>
+      <div class="card">
+        <span class="pill">DESARROLLO</span>
+        <h2 class="section-title" style="font-size:34px;margin-top:14px">Un proyecto pensado por módulos</h2>
+        <p class="section-copy">La electrónica, el firmware y las herramientas de diagnóstico se desarrollan por bloques. Existen programas de prueba independientes para motores, EDF27 y LED, además de una interfaz Python para pruebas de banco y telemetría.</p>
+        <a class="btn primary" href="robot.html#software">Ver software y telemetría</a>
+      </div>
     </div>
   </section>
 </main>
-<script>
-const files={
- main:'hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg',
- sensor:'hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg'
-};
-const stage=document.getElementById('svg-stage');
-const img=document.getElementById('svg-image');
-const hint=document.getElementById('hint');
-const svgError=document.getElementById('svg-error');
-let scale=1,x=0,y=0,drag=false,sx=0,sy=0;
-function apply(){img.style.transform=`translate(calc(-50% + ${x}px),calc(-50% + ${y}px)) scale(${scale})`;document.getElementById('reset').textContent=Math.round(scale*100)+'%'}
-function reset(){scale=1;x=0;y=0;apply()}
-function show(kind){
- document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===kind));
- svgError.classList.add('hidden');
- hint.textContent='Cargando esquemático…';
- img.src=files[kind];
- reset();
-}
-img.addEventListener('load',()=>{svgError.classList.add('hidden');hint.textContent='Rueda del mouse: zoom · arrastrar: mover · doble clic: restablecer.'});
-img.addEventListener('error',()=>{svgError.classList.remove('hidden');hint.textContent='No se pudo cargar el esquemático dentro del visor.'});
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
-stage.addEventListener('wheel',e=>{e.preventDefault();const factor=e.deltaY<0?1.12:0.89;scale=Math.min(12,Math.max(.2,scale*factor));apply()},{passive:false});
-stage.addEventListener('mousedown',e=>{drag=true;stage.classList.add('dragging');sx=e.clientX-x;sy=e.clientY-y});
-window.addEventListener('mousemove',e=>{if(!drag)return;x=e.clientX-sx;y=e.clientY-sy;apply()});
-window.addEventListener('mouseup',()=>{drag=false;stage.classList.remove('dragging')});
-stage.addEventListener('dblclick',reset);
-document.getElementById('plus').onclick=()=>{scale=Math.min(12,scale*1.2);apply()};
-document.getElementById('minus').onclick=()=>{scale=Math.max(.2,scale/1.2);apply()};
-document.getElementById('reset').onclick=reset;
-show('main');
-</script>
+
+<footer class="site-footer">
+  <div class="footer-inner"><span>Deimonyag · RMP Robotics</span><span>Robot seguidor de línea de competición</span></div>
+</footer>
 </body>
 </html>
