@@ -21,68 +21,87 @@
 </header>
 
 <main>
-  <section class="hero">
-    <div>
-      <div class="eyebrow">RMP Robotics · Line Follower</div>
-      <h1>DEIMONYAG</h1>
-      <div class="tagline">THE DEMON ON THE TRACK</div>
-      <p class="lead">Robot seguidor de línea de competición desarrollado alrededor de una ESP32-C3, 12 sensores QRE1113GR, tracción dual con IFX9201SG y un sistema de succión mediante EDF27.</p>
+  <section class="hero-product">
+    <div class="hero-product-inner">
+      <div class="hero-kicker">RMP Robotics · Competition Line Follower</div>
+      <img class="hero-logo" src="images/deimonyag%20logo.png" alt="Logo Deimonyag">
+      <div class="hero-sub">THE DEMON ON THE TRACK</div>
+      <p class="hero-copy">Una plataforma de competición desarrollada para combinar respuesta rápida, sensado preciso, tracción independiente y succión activa en un diseño compacto.</p>
       <div class="actions">
-        <a class="btn primary" href="robot.html">Conocer el robot</a>
+        <a class="btn primary" href="robot.html">Explorar Deimonyag</a>
         <a class="btn" href="schematics.html">Ver esquemáticos</a>
       </div>
-    </div>
-    <div class="hero-art">
-      <img src="images/deimonyag%20logo.png" alt="Logo Deimonyag">
+      <img class="hero-robot" src="images/deimonyag.png" alt="Deimonyag">
     </div>
   </section>
 
-  <section class="section tight">
-    <div class="grid">
-      <a class="card" href="robot.html">
-        <span class="pill">ROBOT</span>
-        <div class="big" style="margin-top:14px">Arquitectura completa</div>
-        <p>Hardware, alimentación, GPIO, sensores, motores, EDF27, firmware y telemetría.</p>
-      </a>
-      <a class="card" href="schematics.html">
-        <span class="pill">HARDWARE</span>
-        <div class="big" style="margin-top:14px">Esquemáticos interactivos</div>
-        <p>Main Board y barra de 12 sensores con zoom y desplazamiento.</p>
-      </a>
-      <a class="card" href="https://github.com/srampello/RMP_Deimonyag">
-        <span class="pill">REPOSITORIO</span>
-        <div class="big" style="margin-top:14px">Desarrollo abierto</div>
-        <p>Firmware, documentación, telemetría, hardware y archivos del proyecto.</p>
-      </a>
+  <section class="editorial center">
+    <div class="eyebrow">Nueva arquitectura</div>
+    <h1 class="display">Rápido. Preciso. Pegado a la pista.</h1>
+    <p class="section-copy">Deimonyag nace alrededor de una ESP32-C3, una barra curva de 12 sensores QRE1113GR, dos motores ProFast con control independiente y una EDF27 destinada a aumentar la carga normal disponible sobre la pista.</p>
+  </section>
+
+  <section class="stat-band">
+    <div class="stats">
+      <div class="stat"><strong>12</strong><span>Sensores QRE1113GR</span></div>
+      <div class="stat"><strong>2</strong><span>Motores ProFast</span></div>
+      <div class="stat"><strong>3S</strong><span>LiPo 450 mAh</span></div>
+      <div class="stat"><strong>EDF27</strong><span>Succión activa</span></div>
     </div>
   </section>
 
-  <section class="section">
-    <h2 class="section-title">Diseñado para competir</h2>
-    <p class="section-copy">Deimonyag combina control rápido, sensado analógico de alta densidad y succión activa para aumentar la carga normal sobre la pista y aprovechar mejor la adherencia disponible.</p>
-    <div class="spec-grid">
-      <div class="spec"><strong>MCU</strong><span>ESP32-C3 Super Mini</span></div>
-      <div class="spec"><strong>Sensores</strong><span>12 × QRE1113GR</span></div>
-      <div class="spec"><strong>Tracción</strong><span>2 × JSumo ProFast</span></div>
-      <div class="spec"><strong>Succión</strong><span>EDF27 brushless + ESC</span></div>
+  <section class="feature">
+    <div class="feature-media"><img src="hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg" alt="Barra de sensores Deimonyag"></div>
+    <div class="feature-copy">
+      <div class="eyebrow">Sensado</div>
+      <h2>Doce sensores. Una lectura compacta.</h2>
+      <p>La barra utiliza 12 QRE1113GR distribuidos sobre una geometría curva. Un CD74HC4067 concentra todas las lecturas analógicas en un único ADC de la ESP32-C3.</p>
+      <div class="metric">95 mm</div>
+      <div class="metric-label">radio de la barra de sensores</div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="grid two">
-      <div class="card image-card"><img src="images/deimonyag.png" alt="Deimonyag"></div>
-      <div class="card">
-        <span class="pill">DESARROLLO</span>
-        <h2 class="section-title" style="font-size:34px;margin-top:14px">Un proyecto pensado por módulos</h2>
-        <p class="section-copy">La electrónica, el firmware y las herramientas de diagnóstico se desarrollan por bloques. Existen programas de prueba independientes para motores, EDF27 y LED, además de una interfaz Python para pruebas de banco y telemetría.</p>
-        <a class="btn primary" href="robot.html#software">Ver software y telemetría</a>
+  <section class="dark-panel">
+    <section class="feature reverse">
+      <div class="feature-media"><img src="images/deimonyag.png" alt="Deimonyag"></div>
+      <div class="feature-copy">
+        <div class="eyebrow">Tracción</div>
+        <h2>Dos motores. Control independiente.</h2>
+        <p>Dos JSumo ProFast de 12 V y 3600 RPM son comandados mediante drivers IFX9201SG. Cada lado dispone de PWM y dirección propios para realizar el control diferencial del seguidor.</p>
+        <div class="metric">2 × IFX9201SG</div>
+        <div class="metric-label">drivers de motor</div>
       </div>
+    </section>
+  </section>
+
+  <section class="feature">
+    <div class="feature-media"><img src="images/deimonyag%20logo.png" alt="Deimonyag suction system"></div>
+    <div class="feature-copy">
+      <div class="eyebrow">Succión</div>
+      <h2>Más carga normal sin sumar masa.</h2>
+      <p>La EDF27 genera una depresión bajo el robot. El objetivo es aumentar la fuerza normal efectiva sobre la pista y, con ella, la adherencia disponible en aceleración y en curva.</p>
+      <div class="metric mono">F = ΔP · A</div>
+      <div class="metric-label">relación ideal de fuerza de succión</div>
     </div>
+  </section>
+
+  <section class="dark-panel">
+    <section class="editorial center">
+      <div class="eyebrow">Electrónica central</div>
+      <h2 class="section-title">ESP32-C3 Super Mini</h2>
+      <p class="section-copy">La misma controladora se encarga del sensado, la lógica de carrera, PWM de ambos motores, señal del ESC, MicroStart, estrategia y futuras funciones de telemetría.</p>
+      <div class="actions"><a class="btn red" href="robot.html">Ver toda la información técnica</a></div>
+    </section>
+  </section>
+
+  <section class="editorial center">
+    <div class="eyebrow">Hardware abierto</div>
+    <h2 class="section-title">Main Board y barra de sensores</h2>
+    <p class="section-copy">Los dos esquemáticos se pueden explorar desde un visor dedicado con zoom y desplazamiento sin salir de la web.</p>
+    <div class="actions"><a class="btn primary" href="schematics.html">Abrir visor de esquemáticos</a><a class="btn" href="https://github.com/srampello/RMP_Deimonyag">Abrir repositorio</a></div>
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner"><span>Deimonyag · RMP Robotics</span><span>Robot seguidor de línea de competición</span></div>
-</footer>
+<footer class="site-footer"><div class="footer-inner"><span>Deimonyag · RMP Robotics</span><span>THE DEMON ON THE TRACK</span></div></footer>
 </body>
 </html>
