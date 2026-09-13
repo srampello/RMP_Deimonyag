@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Información técnica completa de Deimonyag, robot seguidor de línea de RMP Robotics.">
+<meta name="description" content="Información técnica completa de Deimonyag, robot seguidor de línea de competición de RMP Robotics.">
 <title>Deimonyag · El robot</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -21,142 +21,137 @@
 </header>
 
 <main>
-  <section class="hero" style="padding-bottom:30px">
-    <div>
-      <div class="eyebrow">Ficha técnica · Deimonyag</div>
-      <h1 style="font-size:clamp(46px,7vw,82px)">EL ROBOT</h1>
-      <p class="lead">Deimonyag es un seguidor de línea de competición con tracción diferencial y sistema de succión. El diseño prioriza bajo peso, respuesta rápida, sensado de alta resolución y una arquitectura modular para poder probar cada subsistema por separado.</p>
-      <div class="actions">
-        <a class="btn primary" href="#hardware">Hardware</a>
-        <a class="btn" href="#software">Software</a>
-        <a class="btn" href="schematics.html">Esquemáticos</a>
+  <section class="hero-product" style="min-height:72vh">
+    <div class="hero-product-inner">
+      <div class="hero-kicker">Ficha técnica</div>
+      <h1 class="hero-title">DEIMONYAG</h1>
+      <div class="hero-sub">ARQUITECTURA DE COMPETICIÓN</div>
+      <p class="hero-copy">Seguidor de línea con tracción diferencial, sensado analógico de 12 canales y sistema de succión mediante EDF. El desarrollo está pensado por módulos para poder validar cada subsistema antes de integrar el control completo.</p>
+      <div class="actions"><a class="btn primary" href="#hardware">Hardware</a><a class="btn" href="#software">Firmware</a><a class="btn" href="schematics.html">Esquemáticos</a></div>
+      <img class="hero-robot" src="images/deimonyag.png" alt="Deimonyag">
+    </div>
+  </section>
+
+  <section class="stat-band">
+    <div class="stats">
+      <div class="stat"><strong>ESP32-C3</strong><span>control central</span></div>
+      <div class="stat"><strong>12</strong><span>QRE1113GR</span></div>
+      <div class="stat"><strong>3600</strong><span>RPM · ProFast 12 V</span></div>
+      <div class="stat"><strong>75C</strong><span>LiPo 3S 450 mAh</span></div>
+    </div>
+  </section>
+
+  <section class="editorial center" id="hardware">
+    <div class="eyebrow">Arquitectura</div>
+    <h2 class="display">Todo gira alrededor del control.</h2>
+    <p class="section-copy">La Main Board concentra la ESP32-C3, los drivers de motor, alimentación, entradas de estrategia, MicroStart y la señal del ESC. La barra de sensores se mantiene separada para conservar una geometría frontal limpia y específica para el seguimiento.</p>
+  </section>
+
+  <section class="feature">
+    <div class="feature-media"><img src="hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg" alt="Main Board Deimonyag"></div>
+    <div class="feature-copy">
+      <div class="eyebrow">Procesamiento</div>
+      <h2>ESP32-C3 Super Mini</h2>
+      <p>Es el controlador principal. Selecciona canales del multiplexor, toma la lectura ADC, ejecuta el algoritmo de seguimiento, gobierna ambos motores y genera la señal para el ESC de la EDF27.</p>
+      <p>También gestiona el MicroStart, el botón de estrategia, el LED indicador y la comunicación de diagnóstico/telemetría.</p>
+    </div>
+  </section>
+
+  <section class="dark-panel">
+    <section class="feature reverse">
+      <div class="feature-media"><img src="images/deimonyag.png" alt="Sistema de tracción Deimonyag"></div>
+      <div class="feature-copy">
+        <div class="eyebrow">Drivetrain</div>
+        <h2>Tracción independiente de alta respuesta.</h2>
+        <p>Dos motores JSumo ProFast de 12 V y 3600 RPM son controlados mediante dos IFX9201SG. La arquitectura usa una línea PWM y una línea DIR por motor.</p>
+        <div class="metric">2 × ProFast</div>
+        <div class="metric-label">motores de tracción</div>
       </div>
-    </div>
-    <div class="hero-art"><img src="images/deimonyag.png" alt="Deimonyag"></div>
+    </section>
   </section>
 
-  <section class="section tight">
-    <div class="spec-grid">
-      <div class="spec"><strong>Control</strong><span>ESP32-C3 Super Mini</span></div>
-      <div class="spec"><strong>Sensado</strong><span>12 × QRE1113GR + CD74HC4067</span></div>
-      <div class="spec"><strong>Tracción</strong><span>2 × JSumo ProFast 12 V 3600 RPM</span></div>
-      <div class="spec"><strong>Succión</strong><span>EDF27 brushless + ESC</span></div>
-      <div class="spec"><strong>Drivers</strong><span>2 × IFX9201SG</span></div>
-      <div class="spec"><strong>Batería</strong><span>LiPo 3S 450 mAh 75C XT30</span></div>
-      <div class="spec"><strong>Lógica</strong><span>Matek MICRO BEC ajustado a 5 V</span></div>
-      <div class="spec"><strong>Interfaz</strong><span>MicroStart + botón de estrategia + LED</span></div>
+  <section class="feature">
+    <div class="feature-media"><img src="hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg" alt="Barra de sensores Deimonyag"></div>
+    <div class="feature-copy">
+      <div class="eyebrow">VISION</div>
+      <h2>Barra curva de 12 sensores.</h2>
+      <p>Doce QRE1113GR trabajan sobre una geometría radial. El CD74HC4067 permite leerlos usando cuatro líneas de selección y un único ADC.</p>
+      <p>Los LEDs IR se alimentan desde 5 V; el multiplexor y los pull-ups analógicos trabajan a 3,3 V para mantener la lectura dentro del rango seguro de la ESP32-C3.</p>
+      <div class="metric">95 mm</div>
+      <div class="metric-label">radio · separación angular 4,8°</div>
     </div>
   </section>
 
-  <section class="section" id="hardware">
-    <h2 class="section-title">Arquitectura de hardware</h2>
-    <p class="section-copy">La electrónica está dividida entre una Main Board y una barra independiente de 12 sensores. La alimentación separa potencia, lógica a 5 V y señales analógicas a 3,3 V.</p>
-    <div class="grid">
-      <div class="card"><h3>ESP32-C3</h3><p>Control central del robot. Lee el multiplexor, ejecuta el algoritmo de seguimiento, genera PWM para motores y ESC y gestiona entradas de estrategia y MicroStart.</p></div>
-      <div class="card"><h3>Tracción</h3><p>Dos motores JSumo ProFast comandados de forma independiente mediante dos IFX9201SG. Cada motor utiliza una señal PWM y una señal DIR.</p></div>
-      <div class="card"><h3>Succión</h3><p>EDF27 brushless controlada por ESC. La función es generar depresión bajo el robot para aumentar la carga normal disponible sobre la pista.</p></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Alimentación</h2>
-    <div class="grid two">
-      <div class="card">
-        <h3>Distribución de energía</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Rail</th><th>Uso</th></tr></thead>
-            <tbody>
-              <tr><td>VBAT / LiPo 3S</td><td>Motores de tracción y EDF/ESC</td></tr>
-              <tr><td>5 V</td><td>ESP32-C3 y LEDs IR de los QRE1113GR</td></tr>
-              <tr><td>3,3 V</td><td>CD74HC4067 y pull-ups de los fototransistores</td></tr>
-              <tr><td>GND</td><td>Masa común para todos los subsistemas</td></tr>
-            </tbody>
-          </table>
-        </div>
+  <section class="dark-panel">
+    <section class="editorial">
+      <div class="eyebrow">Succión</div>
+      <h2 class="section-title">EDF27: convertir presión en adherencia.</h2>
+      <p class="section-copy">La EDF no se utiliza como propulsor. Su función es reducir la presión bajo el chasis para aumentar la carga normal efectiva sobre la pista. El rendimiento real dependerá de la presión estática disponible, el área efectiva de la cámara y las fugas.</p>
+      <div class="grid two" style="margin-top:34px">
+        <div class="card"><div class="big mono">F = ΔP · A</div><h3>Fuerza de succión</h3><p>Una mayor diferencia de presión o una mayor superficie efectiva incrementan la fuerza perpendicular sobre el robot.</p></div>
+        <div class="card"><div class="big mono">Fmax ≈ μ · N</div><h3>Más adherencia</h3><p>Con succión, N puede aproximarse como mg + Fsucción, aumentando la fuerza longitudinal y lateral disponible.</p></div>
       </div>
-      <div class="card">
-        <h3>Regulación</h3>
-        <p>La LiPo 3S alimenta un Matek MICRO BEC 6–30 V configurado a 5 V. La ESP32-C3 obtiene de allí su alimentación y genera el rail de 3,3 V usado por el multiplexor y las señales analógicas.</p>
-        <div class="callout" style="margin-top:18px">La separación 5 V / 3,3 V mantiene la salida analógica del multiplexor dentro del rango seguro del ADC de la ESP32-C3.</div>
+      <div class="callout" style="margin-top:20px">La distancia al piso, el sellado del plenum, la rigidez del chasis y una descarga de aire sin recirculación son factores críticos del sistema.</div>
+    </section>
+  </section>
+
+  <section class="editorial">
+    <div class="eyebrow">Energía</div>
+    <h2 class="section-title">Tres niveles de alimentación.</h2>
+    <p class="section-copy">La arquitectura separa potencia de motores/EDF, lógica de 5 V y sensado a 3,3 V.</p>
+    <div class="spec-grid" style="margin-top:30px">
+      <div class="spec"><strong>VBAT · LiPo 3S</strong><span>Motores de tracción y EDF/ESC.</span></div>
+      <div class="spec"><strong>5 V · Matek MICRO BEC</strong><span>ESP32-C3 y LEDs IR de los QRE1113GR.</span></div>
+      <div class="spec"><strong>3,3 V · ESP32-C3</strong><span>CD74HC4067 y pull-ups de los fototransistores.</span></div>
+      <div class="spec"><strong>GND común</strong><span>Referencia compartida entre todos los subsistemas.</span></div>
+    </div>
+  </section>
+
+  <section class="dark-panel">
+    <section class="editorial">
+      <div class="eyebrow">GPIO</div>
+      <h2 class="section-title">Mapa actual de señales.</h2>
+      <div class="table-wrap" style="margin-top:28px">
+        <table>
+          <thead><tr><th>GPIO</th><th>Función</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>MUX S3</td></tr><tr><td>1</td><td>MUX S2</td></tr><tr><td>2</td><td>MUX S1</td></tr><tr><td>3</td><td>MUX S0</td></tr><tr><td>4</td><td>MUX SIG / ADC</td></tr>
+            <tr><td>5</td><td>Motor izquierdo PWM</td></tr><tr><td>6</td><td>Motor izquierdo DIR</td></tr><tr><td>7</td><td>Motor derecho PWM</td></tr><tr><td>8</td><td>Motor derecho DIR</td></tr>
+            <tr><td>9</td><td>LED indicador</td></tr><tr><td>10</td><td>ESC / EDF27</td></tr><tr><td>20</td><td>MicroStart</td></tr><tr><td>21</td><td>Botón de estrategia</td></tr>
+          </tbody>
+        </table>
       </div>
+      <p class="small">GPIO2, GPIO8 y GPIO9 son pines de strapping del ESP32-C3 y deben considerarse especialmente durante el arranque.</p>
+    </section>
+  </section>
+
+  <section class="editorial" id="software">
+    <div class="eyebrow">Desarrollo</div>
+    <h2 class="section-title">Firmware probado por subsistemas.</h2>
+    <p class="section-copy">Antes del programa de carrera completo, cada bloque del robot se valida por separado para simplificar el diagnóstico durante el ensamblaje.</p>
+    <div class="grid" style="margin-top:30px">
+      <div class="card"><span class="pill">TEST 01</span><h3 style="margin-top:12px">Motores</h3><p>Motor izquierdo y derecho, giro en ambos sentidos y PWM reducido para la primera puesta en marcha.</p></div>
+      <div class="card"><span class="pill">TEST 02</span><h3 style="margin-top:12px">EDF27 + botón</h3><p>Validación del botón de estrategia, armado del ESC y funcionamiento inicial de la EDF a potencia limitada.</p></div>
+      <div class="card"><span class="pill">TEST 03</span><h3 style="margin-top:12px">LED</h3><p>Programa mínimo de parpadeo para verificar el LED indicador y su GPIO.</p></div>
     </div>
   </section>
 
-  <section class="section" id="sensores">
-    <h2 class="section-title">Barra de sensores</h2>
-    <p class="section-copy">La barra utiliza 12 QRE1113GR y un CD74HC4067. De esta manera se leen 12 sensores mediante un único ADC y cuatro líneas de selección.</p>
-    <div class="grid">
-      <div class="card"><div class="big accent">12</div><h3>QRE1113GR</h3><p>Cada sensor integra un LED infrarrojo y un fototransistor. Los LEDs trabajan desde 5 V y las señales analógicas se referencian a 3,3 V.</p></div>
-      <div class="card"><div class="big accent">95 mm</div><h3>Radio de la barra</h3><p>Distribución curva, radial y simétrica para anticipar la geometría de la línea antes de que el eje motriz llegue a la curva.</p></div>
-      <div class="card"><div class="big accent">4,8°</div><h3>Separación angular</h3><p>Doce posiciones con un span total aproximado de 52,8°. Al ser cantidad par, Q6 y Q7 quedan simétricos alrededor del centro.</p></div>
-    </div>
+  <section class="dark-panel">
+    <section class="editorial center">
+      <div class="eyebrow">Diagnóstico y análisis</div>
+      <h2 class="section-title">Interfaz PC y telemetría.</h2>
+      <p class="section-copy">La aplicación Python dispone de un modo de pruebas de banco para motores, EDF y sensores, y un modo de telemetría de solo lectura para registrar sensores, posición, error, P, D, PID, motores, EDF y tiempo de loop en archivos CSV.</p>
+      <div class="actions"><a class="btn primary" href="https://github.com/srampello/RMP_Deimonyag/tree/master/firmware">Firmware</a><a class="btn" href="https://github.com/srampello/RMP_Deimonyag/tree/master/telemetry">Telemetría</a></div>
+    </section>
   </section>
 
-  <section class="section">
-    <h2 class="section-title">GPIO actual</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>GPIO</th><th>Función</th></tr></thead>
-        <tbody>
-          <tr><td>0</td><td>MUX S3</td></tr>
-          <tr><td>1</td><td>MUX S2</td></tr>
-          <tr><td>2</td><td>MUX S1</td></tr>
-          <tr><td>3</td><td>MUX S0</td></tr>
-          <tr><td>4</td><td>MUX SIG / ADC</td></tr>
-          <tr><td>5</td><td>Motor izquierdo PWM</td></tr>
-          <tr><td>6</td><td>Motor izquierdo DIR</td></tr>
-          <tr><td>7</td><td>Motor derecho PWM</td></tr>
-          <tr><td>8</td><td>Motor derecho DIR</td></tr>
-          <tr><td>9</td><td>LED indicador</td></tr>
-          <tr><td>10</td><td>ESC / EDF27</td></tr>
-          <tr><td>20</td><td>MicroStart</td></tr>
-          <tr><td>21</td><td>Botón de estrategia</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="small">GPIO2, GPIO8 y GPIO9 son pines de strapping del ESP32-C3 y se consideran especialmente durante el arranque.</p>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Succión y dinámica</h2>
-    <p class="section-copy">La EDF27 no se utiliza para propulsar el robot: se utiliza para reducir la presión debajo del chasis. La fuerza de succión ideal se relaciona con la diferencia de presión y el área efectiva de la cámara.</p>
-    <div class="grid two">
-      <div class="card"><h3>Fuerza de succión</h3><div class="big mono">F = ΔP · A</div><p>La depresión aumenta la fuerza normal contra la pista. En la práctica, el rendimiento depende tanto de la presión estática de la EDF como de las fugas de aire de la cámara.</p></div>
-      <div class="card"><h3>Adherencia disponible</h3><div class="big mono">Fmax ≈ μ · N</div><p>Con succión, la carga normal efectiva puede aproximarse como N ≈ mg + Fsucción. Esto aumenta la capacidad de aceleración y la fuerza lateral disponible en curva.</p></div>
-    </div>
-    <div class="callout" style="margin-top:18px">La distancia al piso, el sellado de la cámara, la rigidez del chasis y una salida de aire libre de recirculación son tan importantes como la potencia nominal de la EDF.</div>
-  </section>
-
-  <section class="section" id="software">
-    <h2 class="section-title">Firmware y pruebas</h2>
-    <p class="section-copy">El desarrollo se realiza por módulos para validar la electrónica antes de implementar el seguimiento completo.</p>
-    <div class="grid">
-      <div class="card"><span class="pill">TEST 01</span><h3 style="margin-top:12px">Motores</h3><p>Prueba independiente de motor izquierdo y derecho, adelante y atrás, utilizando PWM reducido para el primer encendido.</p></div>
-      <div class="card"><span class="pill">TEST 02</span><h3 style="margin-top:12px">EDF + botón</h3><p>Prueba del botón de estrategia y del ESC/EDF27 con potencia limitada para validar el armado y la respuesta.</p></div>
-      <div class="card"><span class="pill">TEST 03</span><h3 style="margin-top:12px">LED</h3><p>Programa mínimo de parpadeo para validar el GPIO y el LED indicador de la placa.</p></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Interfaz PC y telemetría</h2>
-    <div class="grid two">
-      <div class="card"><h3>Modo Pruebas</h3><p>Aplicación Python con PySide6/PyQtGraph para comandar motores y EDF únicamente en banco y visualizar en tiempo real los 12 sensores.</p></div>
-      <div class="card"><h3>Modo Telemetría</h3><p>Durante carrera la PC queda en solo lectura: sensores, posición, error, P, D, PID, PWM de motores, EDF y tiempo de loop pueden visualizarse y guardarse en CSV.</p></div>
-    </div>
-    <div class="actions"><a class="btn" href="https://github.com/srampello/RMP_Deimonyag/tree/master/firmware">Firmware</a><a class="btn" href="https://github.com/srampello/RMP_Deimonyag/tree/master/telemetry">Telemetría</a></div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Documentación técnica</h2>
-    <div class="grid">
-      <a class="card" href="schematics.html"><h3>Esquemáticos</h3><p>Visor interactivo de Main Board y barra de 12 sensores.</p></a>
-      <a class="card" href="https://github.com/srampello/RMP_Deimonyag/blob/master/docs/CONEXIONES.md"><h3>Conexiones</h3><p>Documento de conexiones y distribución eléctrica del proyecto.</p></a>
-      <a class="card" href="https://github.com/srampello/RMP_Deimonyag"><h3>Repositorio</h3><p>Historial, firmware, documentación y archivos del proyecto.</p></a>
-    </div>
+  <section class="editorial center">
+    <div class="eyebrow">Documentación</div>
+    <h2 class="section-title">El hardware completo, en detalle.</h2>
+    <p class="section-copy">Accedé al visor dedicado para explorar la Main Board y la barra de 12 sensores.</p>
+    <div class="actions"><a class="btn red" href="schematics.html">Abrir esquemáticos</a><a class="btn" href="https://github.com/srampello/RMP_Deimonyag">Repositorio GitHub</a></div>
   </section>
 </main>
-
 <footer class="site-footer"><div class="footer-inner"><span>Deimonyag · RMP Robotics</span><span>THE DEMON ON THE TRACK</span></div></footer>
 </body>
 </html>
