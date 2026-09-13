@@ -1,0 +1,12 @@
+.brand{display:flex;align-items:center;min-height:42px}
+.brand-logo{height:38px;width:auto;max-width:190px;object-fit:contain}
+.hero-logo{filter:drop-shadow(0 16px 34px rgba(0,0,0,.45))}
+.hero-logo-compact{width:min(560px,74vw)}
+.footer-inner{align-items:center;gap:24px}
+.footer-brand{display:flex;align-items:center}
+.footer-logo{height:48px;width:auto;max-width:230px;object-fit:contain}
+.footer-copy{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:3px}
+.footer-copy strong{color:#f3f3f4;font-size:15px}
+.footer-copy span{font-size:11px;letter-spacing:.14em;color:#8f8f96}
+.viewer-logo{width:min(280px,68vw);height:auto;margin:0 0 24px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35))}
+@media(max-width:620px){.brand-logo{height:34px;max-width:170px}.footer-inner{align-items:flex-start}.footer-copy{margin-left:0;text-align:left}.hero-logo{width:min(620px,94vw)}}
