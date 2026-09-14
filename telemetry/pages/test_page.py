@@ -126,6 +126,7 @@ class TestPage(QWidget):
         self.edf_slider.valueChanged.connect(self._edf_changed)
 
         self.backend.connection_changed.connect(self._connection_changed)
+        self.backend.mode_changed.connect(self._mode_changed)
         self.backend.sensors_updated.connect(self._sensors_updated)
 
     def _toggle_connection(self) -> None:
@@ -142,8 +143,14 @@ class TestPage(QWidget):
         if not connected:
             self._reset_controls()
 
+    def _mode_changed(self, mode: str) -> None:
+        test_active = mode == self.backend.MODE_TEST
+        self._set_controls_enabled(self.backend.connected and test_active)
+        if not test_active:
+            self._reset_controls()
+
     def set_test_mode_active(self, active: bool) -> None:
-        self._set_controls_enabled(active and self.backend.connected)
+        self._set_controls_enabled(active and self.backend.connected and self.backend.mode == self.backend.MODE_TEST)
         if not active:
             self._reset_controls()
 
