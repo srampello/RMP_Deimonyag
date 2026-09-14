@@ -14,6 +14,8 @@ Uso exclusivo de banco/taller:
 - STOP;
 - lectura en tiempo real de los 12 sensores.
 
+Los controles solo quedan habilitados cuando el backend está conectado y el modo confirmado es `TEST`.
+
 ### Telemetría
 
 Modo de solo lectura durante la carrera:
@@ -27,7 +29,7 @@ Modo de solo lectura durante la carrera:
 - estado de carrera y pérdida de línea;
 - grabación CSV.
 
-En este modo la PC no modifica actuadores ni parámetros.
+En este modo la PC no modifica actuadores ni parámetros. La grabación solo puede iniciarse cuando el robot está conectado y el modo activo es `TELEMETRY`.
 
 ## Conexión real
 
@@ -38,6 +40,10 @@ SSID: DEIMONYAG
 Password: deimonyag
 WebSocket: ws://192.168.4.1:81
 ```
+
+La URL puede cambiarse con la variable de entorno `DEIMONYAG_WS`.
+
+## Ejecutar desde Python
 
 Instalar dependencias:
 
@@ -51,18 +57,74 @@ Ejecutar:
 python app.py
 ```
 
-Para usar nuevamente el simulador desde Git Bash:
+Para usar el simulador desde Git Bash:
 
 ```bash
 DEIMONYAG_BACKEND=simulator python app.py
 ```
 
+## Ejecutable de Windows
+
+La aplicación completa —pestañas **Pruebas** y **Telemetría**— se empaqueta en un único ejecutable:
+
+```text
+Deimonyag_Control_Telemetry.exe
+```
+
+### Compilarlo en la PC
+
+Hacer doble clic en:
+
+```text
+build_windows.bat
+```
+
+El script crea/usa `.venv`, instala dependencias y PyInstaller, y genera:
+
+```text
+telemetry/dist/Deimonyag_Control_Telemetry.exe
+```
+
+Para abrirlo rápidamente se puede usar:
+
+```text
+Abrir_Deimonyag.bat
+```
+
+El lanzador abre primero el `.exe` si existe; si no, intenta abrir `app.py` usando el entorno virtual.
+
+### Compilación automática en GitHub
+
+El workflow:
+
+```text
+.github/workflows/build-telemetry-windows.yml
+```
+
+compila el ejecutable en Windows y lo publica como artifact con el nombre:
+
+```text
+Deimonyag-Control-Telemetry-Windows
+```
+
+También puede ejecutarse manualmente desde la pestaña **Actions** de GitHub.
+
 ## Telemetría guardada
 
-Los CSV se guardan en:
+En desarrollo los CSV se guardan en:
 
 ```text
 telemetry/logs/
 ```
+
+En el ejecutable de Windows se crea una carpeta:
+
+```text
+logs/
+```
+
+junto a `Deimonyag_Control_Telemetry.exe`.
+
+Opcionalmente se puede definir otra ubicación mediante la variable de entorno `DEIMONYAG_LOG_DIR`.
 
 El protocolo completo está documentado en `docs/PROTOCOL_WIFI.md`.
