@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 logs/*.csv
 !logs/.gitkeep
+build/
+dist/
+*.spec
