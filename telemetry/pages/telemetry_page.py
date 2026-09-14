@@ -155,6 +155,7 @@ class TelemetryPage(QWidget):
         self.stop_record_button.clicked.connect(self.stop_recording)
 
         self.backend.connection_changed.connect(self._connection_changed)
+        self.backend.mode_changed.connect(self._mode_changed)
         self.backend.telemetry_updated.connect(self._telemetry_updated)
 
     def _toggle_connection(self) -> None:
@@ -166,18 +167,39 @@ class TelemetryPage(QWidget):
     def _connection_changed(self, connected: bool) -> None:
         self.connection_label.setText("Conectado" if connected else "Desconectado")
         self.connect_button.setText("Desconectar" if connected else "Conectar")
-        self.record_button.setEnabled(connected and not self.logger.is_recording)
+        self.record_button.setEnabled(
+            connected
+            and self.backend.mode == self.backend.MODE_TELEMETRY
+            and not self.logger.is_recording
+        )
 
         if not connected:
             self.stop_recording()
 
+    def _mode_changed(self, mode: str) -> None:
+        telemetry_active = mode == self.backend.MODE_TELEMETRY
+        self.record_button.setEnabled(
+            self.backend.connected and telemetry_active and not self.logger.is_recording
+        )
+        if not telemetry_active:
+            self.stop_recording()
+
     def set_telemetry_mode_active(self, active: bool) -> None:
-        self.record_button.setEnabled(active and self.backend.connected and not self.logger.is_recording)
+        self.record_button.setEnabled(
+            active
+            and self.backend.connected
+            and self.backend.mode == self.backend.MODE_TELEMETRY
+            and not self.logger.is_recording
+        )
         if not active:
             self.stop_recording()
 
     def start_recording(self) -> None:
-        if not self.backend.connected or self.logger.is_recording:
+        if (
+            not self.backend.connected
+            or self.backend.mode != self.backend.MODE_TELEMETRY
+            or self.logger.is_recording
+        ):
             return
 
         path = self.logger.start()
@@ -195,7 +217,9 @@ class TelemetryPage(QWidget):
         self.recording_label.setText("Grabación detenida")
         if path is not None:
             self.file_label.setText(path.name)
-        self.record_button.setEnabled(self.backend.connected and self.backend.mode == self.backend.MODE_TELEMETRY)
+        self.record_button.setEnabled(
+            self.backend.connected and self.backend.mode == self.backend.MODE_TELEMETRY
+        )
         self.stop_record_button.setEnabled(False)
 
     def _telemetry_updated(self, sample: dict) -> None:
