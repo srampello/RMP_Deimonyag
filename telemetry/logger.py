@@ -1,4 +1,6 @@
 import csv
+import os
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional, TextIO
@@ -30,11 +32,26 @@ class TelemetryLogger:
     def is_recording(self) -> bool:
         return self._file is not None
 
+    @staticmethod
+    def _logs_dir() -> Path:
+        custom_dir = os.getenv("DEIMONYAG_LOG_DIR", "").strip()
+        if custom_dir:
+            return Path(custom_dir).expanduser().resolve()
+
+        if getattr(sys, "frozen", False):
+            # En el ejecutable de Windows, los CSV quedan junto al .exe.
+            base_dir = Path(sys.executable).resolve().parent
+        else:
+            # En desarrollo, se conserva telemetry/logs/.
+            base_dir = Path(__file__).resolve().parent
+
+        return base_dir / "logs"
+
     def start(self) -> Path:
         if self.is_recording:
             return self.current_path  # type: ignore[return-value]
 
-        logs_dir = Path(__file__).resolve().parent / "logs"
+        logs_dir = self._logs_dir()
         logs_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -70,7 +87,8 @@ class TelemetryLogger:
             row[f"sensor_{index + 1}"] = sensors[index] if index < len(sensors) else ""
 
         self._writer.writerow(row)
-        self._file.flush()  # type: ignore[union-attr]
+        if self._file is not None:
+            self._file.flush()
 
     def stop(self) -> Optional[Path]:
         if self._file is None:
