@@ -1,0 +1,39 @@
+name: Build Telemetry Windows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'telemetry/**'
+      - '.github/workflows/build-telemetry-windows.yml'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: telemetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Build executable
+        working-directory: telemetry
+        run: |
+          pyinstaller --noconfirm --clean --onefile --windowed --name Deimonyag_Control_Telemetry --collect-all pyqtgraph app.py
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Deimonyag-Control-Telemetry-Windows
+          path: telemetry/dist/Deimonyag_Control_Telemetry.exe
+          if-no-files-found: error
