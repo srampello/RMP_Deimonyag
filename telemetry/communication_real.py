@@ -10,6 +10,7 @@ class Esp32Backend(QObject):
     mode_changed = Signal(str)
     sensors_updated = Signal(list)
     telemetry_updated = Signal(dict)
+    io_updated = Signal(dict)
 
     MODE_TEST = "TEST"
     MODE_TELEMETRY = "TELEMETRY"
@@ -22,6 +23,7 @@ class Esp32Backend(QObject):
         self.motor_left = 0
         self.motor_right = 0
         self.edf = 0
+        self.led_on = False
         self._ws = None
         self._thread = None
         self._keepalive_thread = None
@@ -69,6 +71,11 @@ class Esp32Backend(QObject):
         if self.connected and self.mode == self.MODE_TEST:
             self.edf = max(0, min(100, int(value)))
             self._send({"type": "control", "edf": self.edf})
+
+    def set_led(self, on):
+        if self.connected and self.mode == self.MODE_TEST:
+            self.led_on = bool(on)
+            self._send({"type": "led", "on": self.led_on})
 
     def emergency_stop(self):
         if self.mode != self.MODE_TEST:
@@ -135,6 +142,14 @@ class Esp32Backend(QObject):
             if remote_mode in (self.MODE_TEST, self.MODE_TELEMETRY):
                 self.mode = remote_mode
                 self.mode_changed.emit(remote_mode)
+            return
+
+        if kind == "io":
+            self.led_on = bool(data.get("led_on", False))
+            self.io_updated.emit({
+                "button_pressed": bool(data.get("button_pressed", False)),
+                "led_on": self.led_on,
+            })
             return
 
         if kind == "sensors":
