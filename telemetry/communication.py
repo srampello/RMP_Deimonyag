@@ -13,6 +13,7 @@ class SimulatorBackend(QObject):
     mode_changed = Signal(str)
     sensors_updated = Signal(list)
     telemetry_updated = Signal(dict)
+    io_updated = Signal(dict)
 
     MODE_TEST = "TEST"
     MODE_TELEMETRY = "TELEMETRY"
@@ -25,6 +26,7 @@ class SimulatorBackend(QObject):
         self.motor_left = 0
         self.motor_right = 0
         self.edf = 0
+        self.led_on = False
 
         self._start_time = time.monotonic()
         self._last_error = 0.0
@@ -41,6 +43,7 @@ class SimulatorBackend(QObject):
         self._last_error = 0.0
         self._timer.start()
         self.connection_changed.emit(True)
+        self.io_updated.emit({"button_pressed": False, "led_on": self.led_on})
 
     def disconnect_robot(self) -> None:
         if not self.connected:
@@ -72,6 +75,11 @@ class SimulatorBackend(QObject):
     def set_edf(self, value: int) -> None:
         if self.connected and self.mode == self.MODE_TEST:
             self.edf = max(0, min(100, int(value)))
+
+    def set_led(self, on: bool) -> None:
+        if self.connected and self.mode == self.MODE_TEST:
+            self.led_on = bool(on)
+            self.io_updated.emit({"button_pressed": False, "led_on": self.led_on})
 
     def emergency_stop(self) -> None:
         if self.mode != self.MODE_TEST:
