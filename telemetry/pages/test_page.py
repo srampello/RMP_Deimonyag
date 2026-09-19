@@ -21,6 +21,12 @@ class TestPage(QWidget):
         self.connect_button = QPushButton("Conectar")
         self.stop_button = QPushButton("STOP")
 
+        self.led_button = QPushButton("Encender LED")
+        self.led_button.setCheckable(True)
+        self.button_state_label = QLabel("LIBRE")
+        self.button_state_label.setAlignment(Qt.AlignCenter)
+        self.button_state_label.setMinimumHeight(42)
+
         self.motor_left_value = QLabel("0")
         self.motor_right_value = QLabel("0")
         self.edf_value = QLabel("0 %")
@@ -50,6 +56,7 @@ class TestPage(QWidget):
         self._build_ui()
         self._connect_signals()
         self._set_controls_enabled(False)
+        self._set_button_state(False)
 
     @staticmethod
     def _make_slider(minimum: int, maximum: int, value: int) -> QSlider:
@@ -71,6 +78,14 @@ class TestPage(QWidget):
         header.addWidget(self.connection_label)
         header.addWidget(self.connect_button)
         root.addLayout(header)
+
+        io_group = QGroupBox("Prueba rápida ESP32-C3 · Wi-Fi / LED / botón")
+        io_layout = QGridLayout(io_group)
+        io_layout.addWidget(QLabel("LED GPIO9:"), 0, 0)
+        io_layout.addWidget(self.led_button, 0, 1)
+        io_layout.addWidget(QLabel("Botón GPIO21:"), 0, 2)
+        io_layout.addWidget(self.button_state_label, 0, 3)
+        root.addWidget(io_group)
 
         actuators = QGridLayout()
 
@@ -120,6 +135,7 @@ class TestPage(QWidget):
     def _connect_signals(self) -> None:
         self.connect_button.clicked.connect(self._toggle_connection)
         self.stop_button.clicked.connect(self._stop_all)
+        self.led_button.toggled.connect(self._led_toggled)
 
         self.motor_left_slider.valueChanged.connect(self._motor_left_changed)
         self.motor_right_slider.valueChanged.connect(self._motor_right_changed)
@@ -128,6 +144,7 @@ class TestPage(QWidget):
         self.backend.connection_changed.connect(self._connection_changed)
         self.backend.mode_changed.connect(self._mode_changed)
         self.backend.sensors_updated.connect(self._sensors_updated)
+        self.backend.io_updated.connect(self._io_updated)
 
     def _toggle_connection(self) -> None:
         if self.backend.connected:
@@ -142,6 +159,7 @@ class TestPage(QWidget):
 
         if not connected:
             self._reset_controls()
+            self._set_button_state(False)
 
     def _mode_changed(self, mode: str) -> None:
         test_active = mode == self.backend.MODE_TEST
@@ -155,10 +173,37 @@ class TestPage(QWidget):
             self._reset_controls()
 
     def _set_controls_enabled(self, enabled: bool) -> None:
+        self.led_button.setEnabled(enabled)
         self.motor_left_slider.setEnabled(enabled)
         self.motor_right_slider.setEnabled(enabled)
         self.edf_slider.setEnabled(enabled)
         self.stop_button.setEnabled(enabled)
+
+    def _led_toggled(self, checked: bool) -> None:
+        self.led_button.setText("Apagar LED" if checked else "Encender LED")
+        self.backend.set_led(checked)
+
+    def _io_updated(self, state: dict) -> None:
+        pressed = bool(state.get("button_pressed", False))
+        led_on = bool(state.get("led_on", False))
+        self._set_button_state(pressed)
+
+        self.led_button.blockSignals(True)
+        self.led_button.setChecked(led_on)
+        self.led_button.setText("Apagar LED" if led_on else "Encender LED")
+        self.led_button.blockSignals(False)
+
+    def _set_button_state(self, pressed: bool) -> None:
+        if pressed:
+            self.button_state_label.setText("PRESIONADO")
+            self.button_state_label.setStyleSheet(
+                "background:#8b1515;color:white;font-weight:800;border-radius:6px;padding:8px;"
+            )
+        else:
+            self.button_state_label.setText("LIBRE")
+            self.button_state_label.setStyleSheet(
+                "background:#1f4f2b;color:white;font-weight:800;border-radius:6px;padding:8px;"
+            )
 
     def _motor_left_changed(self, value: int) -> None:
         self.motor_left_value.setText(str(value))
@@ -177,14 +222,18 @@ class TestPage(QWidget):
         self._reset_controls()
 
     def _reset_controls(self) -> None:
+        self.led_button.blockSignals(True)
         self.motor_left_slider.blockSignals(True)
         self.motor_right_slider.blockSignals(True)
         self.edf_slider.blockSignals(True)
 
+        self.led_button.setChecked(False)
+        self.led_button.setText("Encender LED")
         self.motor_left_slider.setValue(0)
         self.motor_right_slider.setValue(0)
         self.edf_slider.setValue(0)
 
+        self.led_button.blockSignals(False)
         self.motor_left_slider.blockSignals(False)
         self.motor_right_slider.blockSignals(False)
         self.edf_slider.blockSignals(False)
