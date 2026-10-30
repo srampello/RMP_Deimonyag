@@ -1,121 +1,249 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Deimonyag, robot seguidor de línea de competición con sistema de succión de RMP Robotics.">
-<title>Deimonyag · RMP Robotics</title>
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="branding.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="DEIMONYAG: seguidor de línea con succión de RMP Robotics. Barra curva de 12 sensores, EDF27 y telemetría Wi-Fi.">
+  <title>DEIMONYAG — RMP Robotics</title>
+  <link rel="icon" href="/RMP/assets/images/rmp-logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/RMP/assets/css/styles.css?v=80c8db5a">
+  <style>.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+  
 </head>
 <body>
-<header class="site-header">
-  <nav class="nav">
-    <a class="brand" href="https://srampello.github.io/RMP/" aria-label="RMP Robotics: todos los robots"><img class="brand-logo" src="images/logos/RMP.png" alt="RMP"></a>
-    <div class="nav-links">
-      <a class="active" href="index.html">Inicio</a>
-      <a href="robot.html">El robot</a>
+  <a class="skip" href="#informe">Ir al informe</a>
+
+  <header class="bar">
+    <a href="/RMP/"><img src="/RMP/assets/images/rmp-logo.webp" alt="" width="26" height="26"> RMP Robotics</a>
+    <span class="bar-title">DEIMONYAG</span>
+    <nav class="bar-nav" aria-label="Secciones">
+      <a href="#informe">Informe técnico</a>
       <a href="schematics.html">Esquemáticos</a>
-      <a href="https://srampello.github.io/RMP/robots/deimonyag/">Ficha técnica</a>
-      <a href="https://github.com/srampello/RMP_Deimonyag">GitHub</a>
-    </div>
-  </nav>
-</header>
+      <a class="gh" href="https://github.com/srampello/RMP_Deimonyag" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
 
-<main>
-  <section class="hero-product">
-    <div class="hero-product-inner">
-      <div class="hero-kicker">RMP Robotics · Competition Line Follower</div>
-      <img class="hero-logo" src="images/logos/deimonyag-logo.png" alt="Logo Deimonyag">
-      <p class="hero-copy">Una plataforma de competición desarrollada para combinar respuesta rápida, sensado preciso, tracción independiente y succión activa en un diseño compacto.</p>
-      <div class="actions">
-        <a class="btn primary" href="robot.html">Explorar Deimonyag</a>
-        <a class="btn" href="schematics.html">Ver esquemáticos</a>
-      </div>
-      <img class="hero-robot" src="images/deimonyag.png" alt="Deimonyag">
-    </div>
+  <section class="v-hero"><h1 class="sr-only">DEIMONYAG</h1><img class="logo" src="/RMP/assets/images/deimonyag.webp" alt="Deimonyag: un demonio con casco y turbina sobre el nombre en dorado"><p>Seguidor de línea de competición de RMP Robotics, con succión y telemetría por Wi-Fi.</p><div class="hero-actions"><a class="btn btn-solid" href="#sensado">Conocer el robot</a><a class="btn" href="#informe">Leer el informe</a></div></section>
+
+  <section class="statement">
+    <h2>Rápido. Preciso. Pegado a la pista.</h2>
+    <p>Una ESP32-C3, una barra curva de 12 sensores, dos motores ProFast con control independiente y una turbina EDF27 que aumenta la carga sobre la pista sin sumar masa.</p>
   </section>
 
-  <section class="editorial center">
-    <div class="eyebrow">Nueva arquitectura</div>
-    <h1 class="display">Rápido. Preciso. Pegado a la pista.</h1>
-    <p class="section-copy">Deimonyag nace alrededor de una ESP32-C3, una barra curva de 12 sensores QRE1113GR, dos motores ProFast con control independiente y una EDF27 destinada a aumentar la carga normal disponible sobre la pista.</p>
-  </section>
-
-  <section class="stat-band">
-    <div class="stats">
-      <div class="stat"><strong>12</strong><span>Sensores QRE1113GR</span></div>
-      <div class="stat"><strong>2</strong><span>Motores ProFast</span></div>
-      <div class="stat"><strong>3S</strong><span>LiPo 450 mAh</span></div>
-      <div class="stat"><strong>EDF27</strong><span>Succión activa</span></div>
-    </div>
-  </section>
-
-  <section class="feature">
-    <div class="feature-media component-media"><img src="images/components/qre1113gr.png" alt="Sensor QRE1113GR"></div>
-    <div class="feature-copy">
-      <div class="eyebrow">Sensado</div>
-      <h2>Doce sensores. Una lectura compacta.</h2>
-      <p>La barra utiliza 12 QRE1113GR distribuidos sobre una geometría curva. Un CD74HC4067 concentra todas las lecturas analógicas en un único ADC de la ESP32-C3.</p>
-      <div class="metric">95 mm</div>
-      <div class="metric-label">radio de la barra de sensores</div>
-    </div>
-  </section>
-
-  <section class="dark-panel">
-    <section class="feature reverse">
-      <div class="feature-media component-media">
-        <div class="component-pair">
-          <figure><img src="images/components/motor-profast.png" alt="Motor JSumo ProFast"><figcaption>JSumo ProFast 12 V · 3600 RPM</figcaption></figure>
-          <figure><img src="images/components/ifx9201sg.png" alt="Driver IFX9201SG"><figcaption>IFX9201SG</figcaption></figure>
-        </div>
-      </div>
-      <div class="feature-copy">
-        <div class="eyebrow">Tracción</div>
-        <h2>Dos motores. Control independiente.</h2>
-        <p>Dos JSumo ProFast de 12 V y 3600 RPM son comandados mediante drivers IFX9201SG. Cada lado dispone de PWM y dirección propios para realizar el control diferencial del seguidor.</p>
-        <div class="metric">2 × IFX9201SG</div>
-        <div class="metric-label">drivers de motor</div>
-      </div>
-    </section>
-  </section>
-
-  <section class="feature">
-    <div class="feature-media component-media"><img src="images/components/edf27.png" alt="EDF27 brushless"></div>
-    <div class="feature-copy">
-      <div class="eyebrow">Succión</div>
-      <h2>Más carga normal sin sumar masa.</h2>
-      <p>La EDF27 genera una depresión bajo el robot. El objetivo es aumentar la fuerza normal efectiva sobre la pista y, con ella, la adherencia disponible en aceleración y en curva.</p>
-      <div class="metric mono">F = ΔP · A</div>
-      <div class="metric-label">relación ideal de fuerza de succión</div>
-    </div>
-  </section>
-
-  <section class="dark-panel">
-    <section class="feature reverse">
-      <div class="feature-media component-media"><img src="images/components/esp32-c3-super-mini.png" alt="ESP32-C3 Super Mini"></div>
-      <div class="feature-copy">
-        <div class="eyebrow">Electrónica central</div>
-        <h2>ESP32-C3 Super Mini</h2>
-        <p>La controladora central se encarga del sensado, la lógica de carrera, PWM de ambos motores, señal del ESC, MicroStart, estrategia y futuras funciones de telemetría.</p>
-        <div class="actions left"><a class="btn red" href="robot.html">Ver toda la información técnica</a></div>
-      </div>
-    </section>
-  </section>
-
-  <section class="editorial center">
-    <div class="eyebrow">Hardware abierto</div>
-    <h2 class="section-title">Main Board y barra de sensores</h2>
-    <p class="section-copy">Los dos esquemáticos se pueden explorar desde un visor dedicado con zoom y desplazamiento sin salir de la web.</p>
-    <div class="actions"><a class="btn primary" href="schematics.html">Abrir visor de esquemáticos</a><a class="btn" href="https://github.com/srampello/RMP_Deimonyag">Abrir repositorio</a></div>
-  </section>
-</main>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <a class="footer-brand" href="index.html"><img class="footer-logo" src="images/logos/RMP.png" alt="RMP Robotics"></a>
-    <div class="footer-copy"><strong>Deimonyag</strong><span>THE DEMON ON THE TRACK</span></div>
+<section class="feat" id="sensado">
+  <div class="feat-art"><svg class="draw" viewBox="0 0 240 280" role="img" aria-label="Vista superior de Deimonyag: barra curva de 12 sensores, turbina EDF y dos motores"><g class="grid"><line x1="0" y1="0" x2="0" y2="280"/><line x1="20" y1="0" x2="20" y2="280"/><line x1="40" y1="0" x2="40" y2="280"/><line x1="60" y1="0" x2="60" y2="280"/><line x1="80" y1="0" x2="80" y2="280"/><line x1="100" y1="0" x2="100" y2="280"/><line x1="120" y1="0" x2="120" y2="280"/><line x1="140" y1="0" x2="140" y2="280"/><line x1="160" y1="0" x2="160" y2="280"/><line x1="180" y1="0" x2="180" y2="280"/><line x1="200" y1="0" x2="200" y2="280"/><line x1="220" y1="0" x2="220" y2="280"/><line x1="240" y1="0" x2="240" y2="280"/><line x1="0" y1="0" x2="240" y2="0"/><line x1="0" y1="20" x2="240" y2="20"/><line x1="0" y1="40" x2="240" y2="40"/><line x1="0" y1="60" x2="240" y2="60"/><line x1="0" y1="80" x2="240" y2="80"/><line x1="0" y1="100" x2="240" y2="100"/><line x1="0" y1="120" x2="240" y2="120"/><line x1="0" y1="140" x2="240" y2="140"/><line x1="0" y1="160" x2="240" y2="160"/><line x1="0" y1="180" x2="240" y2="180"/><line x1="0" y1="200" x2="240" y2="200"/><line x1="0" y1="220" x2="240" y2="220"/><line x1="0" y1="240" x2="240" y2="240"/><line x1="0" y1="260" x2="240" y2="260"/><line x1="0" y1="280" x2="240" y2="280"/></g><path class="track" d="M150 290 C150 230 120 200 118 120 C116 60 90 30 40 -10"/><path class="body" d="M51.4 67.4 A137.2 137.2 0 0 1 188.6 67.4 L179.6 83.0 A119.2 119.2 0 0 0 60.4 83.0 Z"/><path class="soft" d="M112 160 L112 76 M128 160 L128 76"/><rect class="body" x="72" y="160" width="96" height="86" rx="6"/><rect class="body" x="54" y="186" width="16" height="40" rx="3"/><rect class="body" x="170" y="186" width="16" height="40" rx="3"/><circle class="body" cx="120" cy="206" r="25"/><circle class="soft" cx="120" cy="206" r="17"/><circle class="soft" cx="120" cy="206" r="5"/><rect class="soft" x="84" y="168" width="20" height="14"/><circle class="sensor" style="--i:0" cx="63.0" cy="71.4" r="3.2"/><circle class="sensor" style="--i:1" cx="72.8" cy="67.0" r="3.2"/><circle class="sensor" style="--i:2" cx="82.9" cy="63.5" r="3.2"/><circle class="sensor" style="--i:3" cx="93.3" cy="60.8" r="3.2"/><circle class="sensor" style="--i:4" cx="103.9" cy="59.0" r="3.2"/><circle class="sensor" style="--i:5" cx="114.6" cy="58.1" r="3.2"/><circle class="sensor" style="--i:6" cx="125.4" cy="58.1" r="3.2"/><circle class="sensor" style="--i:7" cx="136.1" cy="59.0" r="3.2"/><circle class="sensor" style="--i:8" cx="146.7" cy="60.8" r="3.2"/><circle class="sensor" style="--i:9" cx="157.1" cy="63.5" r="3.2"/><circle class="sensor" style="--i:10" cx="167.2" cy="67.0" r="3.2"/><circle class="sensor" style="--i:11" cx="177.0" cy="71.4" r="3.2"/></svg></div>
+  <div class="feat-copy">
+    <p class="kicker">Sensado</p>
+    <h2>Doce sensores sobre un arco.</h2>
+    <p>Los QRE1113GR siguen una curva de 95 mm de radio, orientados en forma radial. Un multiplexor CD74HC4067 junta las doce lecturas en una sola entrada analógica del ESP32-C3.</p>
+    <dl class="stats">
+      <div><dt>Sensores QRE1113GR</dt><dd>12</dd></div>
+      <div><dt>Radio de la barra</dt><dd>95<small>mm</small></dd></div>
+      <div><dt>Separación entre sensores</dt><dd>4,8<small>°</small></dd></div>
+      <div><dt>Entradas analógicas usadas</dt><dd>1</dd></div>
+    </dl>
   </div>
-</footer>
+</section>
+
+<section class="feat flip" id="traccion">
+  <div class="feat-art"><img src="images/web/motor-profast.webp" alt="Motor JSumo ProFast de 12 V y 3600 rpm" loading="lazy"></div>
+  <div class="feat-copy">
+    <p class="kicker">Tracción</p>
+    <h2>Dos motores, control independiente.</h2>
+    <p>Dos JSumo ProFast de 12 V comandados por drivers Infineon IFX9201SG. Cada lado tiene su propio PWM y dirección para el control diferencial.</p>
+    <dl class="stats">
+      <div><dt>Velocidad nominal</dt><dd>3600<small>rpm</small></dd></div>
+      <div><dt>Tensión de los motores</dt><dd>12<small>V</small></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="feat" id="succion">
+  <div class="feat-art"><img src="images/web/edf27.webp" alt="Turbina EDF27 brushless" loading="lazy"></div>
+  <div class="feat-copy">
+    <p class="kicker">Succión</p>
+    <h2>Más agarre sin sumar peso.</h2>
+    <p>La EDF27 genera una depresión bajo el chasis. Eso aumenta la fuerza normal contra la pista y, con ella, la adherencia disponible para acelerar y doblar. Se alimenta directo de la LiPo 3S a través de su ESC.</p>
+    <dl class="stats">
+      <div><dt>Turbina brushless</dt><dd>EDF27</dd></div>
+      <div><dt>Batería LiPo</dt><dd>3S<small>450 mAh</small></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="feat flip" id="electronica">
+  <div class="feat-art"><img src="images/web/esp32-c3-super-mini.webp" alt="Placa ESP32-C3 Super Mini" loading="lazy"></div>
+  <div class="feat-copy">
+    <p class="kicker">Electrónica</p>
+    <h2>Todo en una ESP32-C3 Super Mini.</h2>
+    <p>Lee los sensores, calcula el control, genera el PWM de ambos motores y la señal del ESC, y atiende el MicroStart, el botón de estrategia y el Wi-Fi. Un Matek MICRO BEC le entrega 5 V estables desde la batería.</p>
+    <dl class="stats">
+      <div><dt>Pines en uso</dt><dd>13<small>GPIO</small></dd></div>
+      <div><dt>Regulador</dt><dd>5<small>V</small></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="feat" id="telemetria">
+  <div class="feat-art"><pre>{"type":"mode","mode":"TELEMETRY"}
+
+← sensores, posición, error
+← P, D, salida PID
+← PWM, EDF, tiempo de loop
+
+→ guardado en CSV</pre></div>
+  <div class="feat-copy">
+    <p class="kicker">Telemetría</p>
+    <h2>Ver la carrera desde la PC.</h2>
+    <p>El robot crea su propia red Wi-Fi y habla con una aplicación de Python por WebSocket. En banco se prueban motores, turbina y sensores; en carrera la PC solo escucha, así que perder la conexión no cambia lo que hace el robot.</p>
+    <dl class="stats">
+      <div><dt>Modos</dt><dd>2<small>banco y carrera</small></dd></div>
+      <div><dt>Corte de seguridad en banco</dt><dd>500<small>ms</small></dd></div>
+    </dl>
+  </div>
+</section>
+
+  <div class="report-title">
+    <h2>Informe técnico</h2>
+    <p>Hardware, pinout, firmware y estado del proyecto. También está en la <a href="/RMP/robots/deimonyag/">ficha de RMP Robotics</a>.</p>
+  </div>
+
+  <div class="report" id="informe">
+    <aside class="side">
+      <figure class="side-media"><img src="/RMP/assets/images/deimonyag.webp" alt="Emblema de Deimonyag: un demonio con casco y turbina sobre el nombre en dorado" class="contain" loading="lazy"><figcaption>Deimonyag, «the demon on the track»</figcaption></figure>
+      <nav class="outline" aria-label="Índice del informe">
+        <p>Índice</p>
+        <ol><li><a href="#introduccion">Introducción</a></li><li><a href="#mecanica">Mecánica</a><ol><li><a href="#barra">Barra de sensores</a></li><li><a href="#succion">Succión</a></li></ol></li><li><a href="#hardware">Hardware</a><ol><li><a href="#alimentacion">Alimentación</a></li><li><a href="#sensores">Sensores</a></li><li><a href="#traccion">Tracción</a></li></ol></li><li><a href="#pinout">Pinout</a></li><li><a href="#software">Software</a><ol><li><a href="#firmware">Firmware Wi-Fi</a></li><li><a href="#app">Aplicación de PC</a></li></ol></li><li><a href="#estado">Estado y próximos pasos</a></li><li><a href="#archivos">Archivos</a></li></ol>
+      </nav>
+    </aside>
+
+    <article class="doc">
+<section id="introduccion">
+  <h2>Introducción</h2>
+  <p>Deimonyag es el seguidor de línea principal de RMP. La idea es ganar velocidad en las curvas sin agregar peso: una turbina <strong>EDF27</strong> genera succión bajo el chasis y aumenta la fuerza contra la pista, así el robot puede doblar más rápido sin derrapar.</p>
+  <p>La revisión 0.2 (12 de septiembre de 2026) fijó la arquitectura de alimentación y los componentes principales. El firmware Wi-Fi y la aplicación de telemetría ya se comunican con el robot real.</p>
+</section>
+
+<section id="mecanica">
+  <h2>Mecánica</h2>
+  <h3 id="barra">Barra de sensores</h3>
+  <p>Los 12 sensores no van en línea recta: siguen un arco de <strong>95 mm de radio</strong> con <strong>4,8°</strong> entre cada uno, orientados en forma radial. Los sensores Q6 y Q7 quedan simétricos respecto del eje del robot.</p>
+  <h3 id="succion">Succión</h3>
+  <p>Un EDF27 brushless alimentado directo desde la LiPo 3S a través de un ESC, controlado con la señal de GPIO10. La potencia se maneja de 0 a 100 desde la aplicación de PC en modo banco.</p>
+</section>
+
+<section id="hardware">
+  <h2>Hardware</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Área</th><th>Componente</th></tr></thead>
+    <tbody>
+      <tr><td>Controlador</td><td>ESP32-C3 Super Mini</td></tr>
+      <tr><td>Sensores</td><td>12 × QRE1113GR con multiplexor CD74HC4067</td></tr>
+      <tr><td>Tracción</td><td>2 × JSumo ProFast 12 V 3600 rpm</td></tr>
+      <tr><td>Drivers</td><td>2 × Infineon IFX9201SG</td></tr>
+      <tr><td>Succión</td><td>EDF27 brushless con ESC</td></tr>
+      <tr><td>Energía</td><td>LiPo 3S 450 mAh 75C con XT30 y Matek MICRO BEC a 5 V</td></tr>
+      <tr><td>Interfaz</td><td>MicroStart, botón de estrategia y LED indicador</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="alimentacion">Alimentación</h3>
+  <ul>
+    <li><strong>VBAT 3S</strong>: drivers de tracción y ESC del EDF.</li>
+    <li><strong>5 V</strong> del Matek MICRO BEC (6–30 V): ESP32-C3 y LEDs infrarrojos de la barra. Reemplazó al Mini360 en la revisión 0.2.</li>
+    <li><strong>3,3 V</strong> del ESP32-C3: multiplexor y pull-ups de los fototransistores.</li>
+    <li><strong>GND</strong> común.</li>
+  </ul>
+
+  <h3 id="sensores">Sensores</h3>
+  <p>Cada QRE1113GR lleva el LED a 5 V con 150 Ω y el fototransistor con pull-up de 10 kΩ a 3,3 V. Los canales Y0 a Y11 del CD74HC4067 leen los sensores de izquierda a derecha; Y12 a Y15 van a GND. La salida común del multiplexor entra al ADC por GPIO4.</p>
+
+  <h3 id="traccion">Tracción</h3>
+  <p>Dos IFX9201SG, uno por motor, controlados por PWM y dirección. VS va a la batería 3S, VSO a 3,3 V, y las líneas SPI (DIS, SCK, CSN, SI) a GND porque no se usa la configuración por SPI.</p>
+</section>
+
+<section id="pinout">
+  <h2>Pinout</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th class="num">GPIO</th><th>Función</th></tr></thead>
+    <tbody>
+      <tr><td class="num">0</td><td>MUX S3</td></tr>
+      <tr><td class="num">1</td><td>MUX S2</td></tr>
+      <tr><td class="num">2</td><td>MUX S1</td></tr>
+      <tr><td class="num">3</td><td>MUX S0</td></tr>
+      <tr><td class="num">4</td><td>MUX SIG, entrada ADC</td></tr>
+      <tr><td class="num">5</td><td>Motor 1, PWM</td></tr>
+      <tr><td class="num">6</td><td>Motor 1, dirección</td></tr>
+      <tr><td class="num">7</td><td>Motor 2, PWM</td></tr>
+      <tr><td class="num">8</td><td>Motor 2, dirección</td></tr>
+      <tr><td class="num">9</td><td>LED indicador</td></tr>
+      <tr><td class="num">10</td><td>Señal del ESC del EDF27</td></tr>
+      <tr><td class="num">20</td><td>MicroStart</td></tr>
+      <tr><td class="num">21</td><td>Botón de estrategia</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="software">
+  <h2>Software</h2>
+  <h3 id="firmware">Firmware Wi-Fi</h3>
+  <p>El ESP32-C3 crea su propio punto de acceso y expone un WebSocket en <code>ws://192.168.4.1:81</code>. Los mensajes son JSON y tienen dos modos:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Modo</th><th>Para qué sirve</th><th>Qué puede hacer la PC</th></tr></thead>
+    <tbody>
+      <tr><td><code>TEST</code></td><td>Banco de pruebas en el taller</td><td>Mover cada motor (−255 a 255), el EDF (0 a 100) y leer los 12 sensores</td></tr>
+      <tr><td><code>TELEMETRY</code></td><td>Carrera y análisis</td><td>Solo leer: sensores, error, P, D, PID, PWM, EDF y tiempo de loop</td></tr>
+    </tbody>
+  </table></div>
+  <p>En modo banco hay un watchdog: si el robot no recibe nada de la PC durante 500 ms, apaga los actuadores. En telemetría el robot rechaza cualquier orden de movimiento, así que perder el Wi-Fi no cambia su comportamiento en pista.</p>
+  <pre>{"type":"control","motor_left":120}
+{"type":"control","edf":65}
+{"type":"stop"}</pre>
+
+  <h3 id="app">Aplicación de PC</h3>
+  <p>Una aplicación en Python con dos pestañas, Pruebas y Telemetría, que guarda cada carrera en CSV para analizarla después. Tiene un simulador para desarrollar sin el robot y se empaqueta como ejecutable de Windows con GitHub Actions.</p>
+</section>
+
+<section id="estado">
+  <h2>Estado y próximos pasos</h2>
+  <ol class="steps">
+    <li class="done"><span><strong>Revisión 0.1.</strong> Primera arquitectura electrónica y mapa de GPIO.</span></li>
+    <li class="done"><span><strong>Revisión 0.2.</strong> Matek MICRO BEC, alimentación 3S / 5 V / 3,3 V, barra curva definida y esquemáticos exportados.</span></li>
+    <li class="done"><span>Firmware Wi-Fi y aplicación de telemetría conectados al ESP32-C3 real.</span></li>
+    <li><span>Fabricar y montar la placa principal y la barra de sensores.</span></li>
+    <li><span>Calibrar sensores y ajustar el PID en pista con la telemetría.</span></li>
+  </ol>
+</section>
+
+<section id="archivos">
+  <h2>Archivos</h2>
+  <div class="files">
+    <a href="https://srampello.github.io/RMP_Deimonyag/">Visor interactivo de esquemáticos <span>Web</span></a>
+    <a href="https://github.com/srampello/RMP_Deimonyag/blob/master/docs/CONEXIONES.md">Conexiones <span>Markdown</span></a>
+    <a href="https://github.com/srampello/RMP_Deimonyag/blob/master/docs/PROTOCOL_WIFI.md">Protocolo Wi-Fi <span>Markdown</span></a>
+    <a href="https://github.com/srampello/RMP_Deimonyag/tree/master/telemetry">Aplicación de telemetría <span>Python</span></a>
+    <a href="https://github.com/srampello/RMP_Deimonyag/blob/master/CHANGELOG.md">Historial de cambios <span>Markdown</span></a>
+  </div>
+</section>
+
+      <footer class="doc-foot">
+        <a href="/AUS_KIM/">← AUS_KIM</a>
+        <a href="/RMP/">Todos los robots</a>
+        <a href="/RMP_unicum/">UNICUM →</a>
+      </footer>
+    </article>
+  </div>
+
+  <footer class="site-foot robot-foot">
+    <span>DEIMONYAG es un proyecto de <a href="/RMP/">RMP Robotics</a></span>
+    <nav aria-label="Otros robots"><a href="/RMP_unicum/">UNICUM</a><a href="/RMP_Lea_Paredes/">LEA_PAREDES</a><a href="/AUS_KIM/">AUS_KIM</a></nav>
+  </footer>
+
+  <script src="/RMP/assets/js/robot.js?v=0282eab3" defer></script>
+  
 </body>
 </html>
