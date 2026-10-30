@@ -1,5 +1,7 @@
 # RMP Deimonyag
 
+> **Ficha técnica:** [Deimonyag en RMP Robotics](https://srampello.github.io/RMP/robots/deimonyag/) · Todos los robots en [srampello.github.io/RMP](https://srampello.github.io/RMP/)
+
 Repositorio principal de **Deimonyag**, robot seguidor de línea de competición con sistema de succión.
 
 <p align="center">
