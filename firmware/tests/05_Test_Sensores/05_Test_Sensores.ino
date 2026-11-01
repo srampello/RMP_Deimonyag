@@ -37,11 +37,20 @@
 
 const uint8_t muxSelPins[4] = {PIN_MUX_S0, PIN_MUX_S1, PIN_MUX_S2, PIN_MUX_S3};
 
-// Canal del mux de cada sensor, de izquierda (Q1) a derecha (Q12)
-const uint8_t muxChannels[NUM_SENSORS] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+// Canal del mux de cada sensor, de izquierda (Q1) a derecha (Q12).
+// Segun el esquematico seria {0..11}, pero en la placa real Y0 e Y1
+// leen ~20 (a GND) y el sensor izquierdo aparece en Y2 -> probamos Y2..Y13.
+// Confirmar con el modo 'd' (escanea los 16 canales).
+const uint8_t muxChannels[NUM_SENSORS] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
 QTRMux qtr(muxSelPins, PIN_MUX_SIG, muxChannels, NUM_SENSORS,
            NUM_SAMPLES_PER_SENSOR, MUX_SETTLE_US);
+
+// Para diagnostico: los 16 canales del mux en orden Y0..Y15
+const uint8_t todosLosCanales[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+QTRMux muxScan(muxSelPins, PIN_MUX_SIG, todosLosCanales, 16,
+               NUM_SAMPLES_PER_SENSOR, MUX_SETTLE_US);
+uint16_t scanValues[16];
 
 uint16_t sensorValues[NUM_SENSORS];
 int position = 0;
@@ -109,7 +118,7 @@ void loop() {
       break;
 
     case MODO_DIAG:
-      qtr.read(sensorValues);
+      muxScan.read(scanValues);
       imprimirDiagnostico();
       break;
   }
@@ -128,7 +137,7 @@ void leerComandos() {
       case 'x': case 'X': qtr.resetCalibration(); Serial.println(F("> Calibracion borrada")); break;
       case 't': case 'T': medirTiempo();             break;
       case 'd': case 'D': modo = MODO_DIAG;
-        Serial.println(F("> Modo DIAGNOSTICO: acercar algo blanco a UN sensor por vez, de izq a der"));
+        Serial.println(F("> Modo DIAGNOSTICO: escanea Y0..Y15. Acercar algo blanco a UN sensor por vez, de izq a der"));
         break;
       case 'h': case 'H': case '?': ayuda();         break;
       default: break;   // ignora \r, \n, etc.
@@ -199,42 +208,46 @@ void imprimirCalibracion() {
   }
 }
 
-// Diagnostico: muestra que sensores bajaron claramente respecto al resto.
-// Si al tapar UN sensor reaccionan dos Q a la vez (ej. Q1 y Q3),
-// hay una linea S0..S3 cortada o en corto, no es un tema de orden.
+// Diagnostico: escanea los 16 canales del mux (Y0..Y15).
+//   '#' = reacciona (bajo respecto al resto)
+//   'g' = valor casi 0 fijo (canal a GND / sin sensor)
+//   '.' = sensor sin tapar
+// Si al tapar UN sensor reaccionan dos canales a la vez, hay una
+// linea S0..S3 cortada o en corto.
+#define DIAG_GND  150
+
 void imprimirDiagnostico() {
-  // mediana aproximada: ordenar copia
-  uint16_t tmp[NUM_SENSORS];
-  memcpy(tmp, sensorValues, sizeof(tmp));
-  for (uint8_t i = 1; i < NUM_SENSORS; i++) {
+  // Mediana de los canales que no estan a GND
+  uint16_t tmp[16];
+  uint8_t n = 0;
+  for (uint8_t i = 0; i < 16; i++) {
+    if (scanValues[i] > DIAG_GND) tmp[n++] = scanValues[i];
+  }
+  for (uint8_t i = 1; i < n; i++) {
     uint16_t v = tmp[i]; int8_t j = i - 1;
     while (j >= 0 && tmp[j] > v) { tmp[j + 1] = tmp[j]; j--; }
     tmp[j + 1] = v;
   }
-  uint16_t mediana = tmp[NUM_SENSORS / 2];
+  uint16_t mediana = n ? tmp[n / 2] : 0;
   uint16_t umbral  = mediana * 7 / 10;      // 30% por debajo del resto
 
-  // Mapa: '#' = reacciona, '.' = no
-  Serial.print(F("Q1["));
-  bool alguno = false;
-  for (uint8_t i = 0; i < NUM_SENSORS; i++) {
-    bool r = sensorValues[i] < umbral;
-    Serial.print(r ? '#' : '.');
-    alguno |= r;
+  Serial.print(F("Y0["));
+  for (uint8_t i = 0; i < 16; i++) {
+    if (scanValues[i] <= DIAG_GND)      Serial.print('g');
+    else if (scanValues[i] < umbral)    Serial.print('#');
+    else                                Serial.print('.');
   }
-  Serial.print(F("]Q12  "));
+  Serial.print(F("]Y15  "));
 
-  if (!alguno) {
-    Serial.println(F("(ninguno)"));
-    return;
-  }
-  for (uint8_t i = 0; i < NUM_SENSORS; i++) {
-    if (sensorValues[i] < umbral) {
-      Serial.print('Q'); Serial.print(i + 1);
-      Serial.print(F("(Y")); Serial.print(muxChannels[i]);
-      Serial.print(F(")=")); Serial.print(sensorValues[i]); Serial.print(F("  "));
+  bool alguno = false;
+  for (uint8_t i = 0; i < 16; i++) {
+    if (scanValues[i] > DIAG_GND && scanValues[i] < umbral) {
+      Serial.print('Y'); Serial.print(i);
+      Serial.print('='); Serial.print(scanValues[i]); Serial.print(F("  "));
+      alguno = true;
     }
   }
+  if (!alguno) Serial.print(F("(ninguno)"));
   Serial.println();
 }
 
