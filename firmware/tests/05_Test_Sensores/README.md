@@ -19,6 +19,7 @@ Incluye `QTRMux`, una librería con la misma API y lógica que QTRSensors de Pol
 | `m` | Mín/máx de calibración |
 | `x` | Borrar calibración |
 | `t` | Tiempo de lectura de los 12 sensores |
+| `d` | Diagnóstico de orden: muestra qué Q reacciona al tapar un sensor |
 
 Los modos `r` y `k` son compatibles con el Serial Plotter.
 
