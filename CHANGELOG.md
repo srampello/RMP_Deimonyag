@@ -6,7 +6,7 @@ Todos los cambios relevantes del proyecto Deimonyag se documentan en este archiv
 
 ### Agregado
 - `firmware/Deimonyag_Web`: interfaz web servida por el robot (http://192.168.4.1)
-  con logo y colores de RMP Robotics y pestañas Motores, Sensores, Botón,
+  con logo de RMP Robotics en negro, blanco y violeta eléctrico, y pestañas Motores, Sensores, Botón,
   MicroStart y PID en tiempo real.
 - PID con la estructura de Holdmoss (recta, arranque suave, freno por botón),
   parámetros en vivo y guardado en flash (NVS). Calibración guardada en flash.
