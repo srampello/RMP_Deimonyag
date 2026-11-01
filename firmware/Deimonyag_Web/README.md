@@ -71,6 +71,7 @@ Los valores iniciales son los de Holdmoss reescalados al error de 12 sensores (�
 | Archivo | Contenido |
 |---|---|
 | `Deimonyag_Web.ino` | WiFi, servidor web, WebSocket, motores, sensores, PID, entradas |
+| `tipos.h` | Tipos propios (estado, origen, configuración) |
 | `web_page.h` | La página completa (HTML, CSS y JS). Se puede editar directo |
 | `logos.h` | Logos RMP y Deimonyag en PNG, generados desde `images/logos/` |
 | `QTRMux.h/.cpp` | Librería de sensores por mux (la misma del test 05) |

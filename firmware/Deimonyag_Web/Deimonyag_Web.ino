@@ -22,6 +22,8 @@
 #include <ArduinoJson.h>
 #include <Preferences.h>
 
+#include "tipos.h"     // tipos propios (van en un .h para que el IDE los vea
+                       // antes de los prototipos que genera solo)
 #include "QTRMux.h"
 #include "web_page.h"
 #include "logos.h"
@@ -94,27 +96,8 @@ int      position = CENTRO_LINEA;
 // Configuracion (se guarda en flash con "Guardar")
 // Valores iniciales: los de Holdmoss reescalados al error de
 // 12 sensores (+-5500 en vez de +-3500 -> x0.64)
+// (struct Config y CFG_VERSION estan en tipos.h)
 // ------------------------------------------------------------
-#define CFG_VERSION 1
-
-struct Config {
-  uint8_t  version;
-  float    kp;
-  float    kd;
-  float    ki;
-  int16_t  velBase;
-  int16_t  velRecta;
-  bool     usarRecta;
-  int16_t  umbralRecta;
-  int16_t  tiempoRecta;      // ms
-  int32_t  limiteI;
-  bool     arranqueSuave;
-  uint8_t  edfPid;           // % de succion durante el PID
-  uint8_t  tipoLinea;        // 1 blanca, 0 negra
-  uint8_t  accionBoton;      // 0 nada, 1 calibrar, 2 iniciar/detener PID
-  bool     microstartArmado;
-};
-
 Config cfg;
 
 void configPorDefecto() {
@@ -140,8 +123,6 @@ Preferences prefs;
 // ------------------------------------------------------------
 // Estado general
 // ------------------------------------------------------------
-enum Estado : uint8_t { EST_LIBRE = 0, EST_CALIBRANDO = 1, EST_PID = 2 };
-enum Origen : uint8_t { ORG_WEB = 0, ORG_BOTON = 1, ORG_MICROSTART = 2 };
 
 Estado estado = EST_LIBRE;
 Origen origenPid = ORG_WEB;
