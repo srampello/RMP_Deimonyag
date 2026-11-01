@@ -2,6 +2,21 @@
 
 Todos los cambios relevantes del proyecto Deimonyag se documentan en este archivo.
 
+## [0.4] - 2026-11-01
+
+### Agregado
+- `firmware/Deimonyag_Web`: interfaz web servida por el robot (http://192.168.4.1)
+  con logo y colores de RMP Robotics y pestañas Motores, Sensores, Botón,
+  MicroStart y PID en tiempo real.
+- PID con la estructura de Holdmoss (recta, arranque suave, freno por botón),
+  parámetros en vivo y guardado en flash (NVS). Calibración guardada en flash.
+- `QTRMux::setCalibration()` para cargar una calibración guardada.
+
+### Eliminado
+- Tests 01–04, `firmware/Deimonyag_WiFi`, la aplicación Python `telemetry/`,
+  su workflow de compilación y `docs/PROTOCOL_WIFI.md` (reemplazados por la
+  interfaz web; quedan en el historial de git).
+
 ## [0.3] - 2026-10-31
 
 ### Agregado

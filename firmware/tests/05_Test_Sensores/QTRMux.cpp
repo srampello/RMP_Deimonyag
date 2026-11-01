@@ -68,6 +68,14 @@ void QTRMux::resetCalibration() {
   _calibrated = false;
 }
 
+void QTRMux::setCalibration(const uint16_t *minimos, const uint16_t *maximos) {
+  for (uint8_t i = 0; i < _numSensors; i++) {
+    calibratedMinimum[i] = minimos[i];
+    calibratedMaximum[i] = maximos[i];
+  }
+  _calibrated = true;
+}
+
 void QTRMux::calibrate() {
   uint16_t v[QTRMUX_MAX_SENSORS];
   uint16_t maxThis[QTRMUX_MAX_SENSORS];

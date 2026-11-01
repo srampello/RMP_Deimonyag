@@ -51,6 +51,9 @@ public:
   // Borra la calibracion.
   void resetCalibration();
 
+  // Carga una calibracion guardada (por ejemplo desde flash/NVS).
+  void setCalibration(const uint16_t *minimos, const uint16_t *maximos);
+
   // true si ya se llamo a calibrate() al menos una vez.
   bool isCalibrated() const { return _calibrated; }
 

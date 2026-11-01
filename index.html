@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="DEIMONYAG: seguidor de línea con succión de RMP Robotics. Barra curva de 12 sensores, EDF27 y telemetría Wi-Fi.">
+  <meta name="description" content="DEIMONYAG: seguidor de línea con succión de RMP Robotics. Barra curva de 12 sensores, EDF27 e interfaz web por Wi-Fi.">
   <title>DEIMONYAG — RMP Robotics</title>
   <link rel="icon" href="/RMP/assets/images/rmp-logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
     </nav>
   </header>
 
-  <section class="v-hero"><h1 class="sr-only">DEIMONYAG</h1><img class="logo" src="/RMP/assets/images/deimonyag.webp" alt="Deimonyag: un demonio con casco y turbina sobre el nombre en dorado"><p>Seguidor de línea de competición de RMP Robotics, con succión y telemetría por Wi-Fi.</p><div class="hero-actions"><a class="btn btn-solid" href="#sensado">Conocer el robot</a><a class="btn" href="#informe">Leer el informe</a></div></section>
+  <section class="v-hero"><h1 class="sr-only">DEIMONYAG</h1><img class="logo" src="/RMP/assets/images/deimonyag.webp" alt="Deimonyag: un demonio con casco y turbina sobre el nombre en dorado"><p>Seguidor de línea de competición de RMP Robotics, con succión e interfaz web por Wi-Fi.</p><div class="hero-actions"><a class="btn btn-solid" href="#sensado">Conocer el robot</a><a class="btn" href="#informe">Leer el informe</a></div></section>
 
   <section class="statement">
     <h2>Rápido. Preciso. Pegado a la pista.</h2>
@@ -89,20 +89,21 @@
 </section>
 
 <section class="feat" id="telemetria">
-  <div class="feat-art"><pre>{"type":"mode","mode":"TELEMETRY"}
+  <div class="feat-art"><pre>http://192.168.4.1
+
+Motores · Sensores · Botón
+MicroStart · PID
 
 ← sensores, posición, error
-← P, D, salida PID
-← PWM, EDF, tiempo de loop
-
-→ guardado en CSV</pre></div>
+← P, I, D, corrección, PWM
+→ KP, KD, KI en vivo</pre></div>
   <div class="feat-copy">
-    <p class="kicker">Telemetría</p>
-    <h2>Ver la carrera desde la PC.</h2>
-    <p>El robot crea su propia red Wi-Fi y habla con una aplicación de Python por WebSocket. En banco se prueban motores, turbina y sensores; en carrera la PC solo escucha, así que perder la conexión no cambia lo que hace el robot.</p>
+    <p class="kicker">Interfaz web</p>
+    <h2>Ajustar el PID desde el navegador.</h2>
+    <p>El robot crea su propia red Wi-Fi y sirve una interfaz web desde su memoria: no hay que instalar nada, alcanza con el celular o la PC. Se prueban motores, turbina, sensores, botón y MicroStart, y el PID se ajusta en vivo con el robot andando, con gráficos en tiempo real.</p>
     <dl class="stats">
-      <div><dt>Modos</dt><dd>2<small>banco y carrera</small></dd></div>
-      <div><dt>Corte de seguridad en banco</dt><dd>500<small>ms</small></dd></div>
+      <div><dt>Pestañas</dt><dd>5<small>pruebas y PID</small></dd></div>
+      <div><dt>Corte de seguridad</dt><dd>600<small>ms</small></dd></div>
     </dl>
   </div>
 </section>
@@ -125,7 +126,7 @@
 <section id="introduccion">
   <h2>Introducción</h2>
   <p>Deimonyag es el seguidor de línea principal de RMP. La idea es ganar velocidad en las curvas sin agregar peso: una turbina <strong>EDF27</strong> genera succión bajo el chasis y aumenta la fuerza contra la pista, así el robot puede doblar más rápido sin derrapar.</p>
-  <p>La revisión 0.2 (12 de septiembre de 2026) fijó la arquitectura de alimentación y los componentes principales. El firmware Wi-Fi y la aplicación de telemetría ya se comunican con el robot real.</p>
+  <p>La revisión 0.2 (12 de septiembre de 2026) fijó la arquitectura de alimentación y los componentes principales. Los 12 sensores ya funcionan y el robot tiene su interfaz web de pruebas y PID.</p>
 </section>
 
 <section id="mecanica">
@@ -190,22 +191,22 @@
 
 <section id="software">
   <h2>Software</h2>
-  <h3 id="firmware">Firmware Wi-Fi</h3>
-  <p>El ESP32-C3 crea su propio punto de acceso y expone un WebSocket en <code>ws://192.168.4.1:81</code>. Los mensajes son JSON y tienen dos modos:</p>
+  <h3 id="firmware">Interfaz web</h3>
+  <p>El ESP32-C3 crea su propio punto de acceso y sirve la interfaz en <code>http://192.168.4.1</code>. Los datos en vivo y los comandos viajan en JSON por un WebSocket en el puerto 81.</p>
   <div class="table-wrap"><table>
-    <thead><tr><th>Modo</th><th>Para qué sirve</th><th>Qué puede hacer la PC</th></tr></thead>
+    <thead><tr><th>Pestaña</th><th>Qué permite</th></tr></thead>
     <tbody>
-      <tr><td><code>TEST</code></td><td>Banco de pruebas en el taller</td><td>Mover cada motor (−255 a 255), el EDF (0 a 100) y leer los 12 sensores</td></tr>
-      <tr><td><code>TELEMETRY</code></td><td>Carrera y análisis</td><td>Solo leer: sensores, error, P, D, PID, PWM, EDF y tiempo de loop</td></tr>
+      <tr><td>Motores</td><td>Mover cada motor (−255 a 255) y la succión EDF27 (0 a 100 %)</td></tr>
+      <tr><td>Sensores</td><td>Ver los 12 sensores en crudo o calibrados, la posición de línea y calibrar</td></tr>
+      <tr><td>Botón</td><td>Estado del botón de estrategia, su acción y el LED</td></tr>
+      <tr><td>MicroStart</td><td>Señal en vivo y armado para largar y frenar el PID</td></tr>
+      <tr><td>PID</td><td>KP, KD, KI, velocidades y recta en vivo, con gráficos en tiempo real</td></tr>
     </tbody>
   </table></div>
-  <p>En modo banco hay un watchdog: si el robot no recibe nada de la PC durante 500 ms, apaga los actuadores. En telemetría el robot rechaza cualquier orden de movimiento, así que perder el Wi-Fi no cambia su comportamiento en pista.</p>
-  <pre>{"type":"control","motor_left":120}
-{"type":"control","edf":65}
-{"type":"stop"}</pre>
-
-  <h3 id="app">Aplicación de PC</h3>
-  <p>Una aplicación en Python con dos pestañas, Pruebas y Telemetría, que guarda cada carrera en CSV para analizarla después. Tiene un simulador para desarrollar sin el robot y se empaqueta como ejecutable de Windows con GitHub Actions.</p>
+  <p>Si la página deja de comunicarse durante 600 ms, el robot apaga los mandos manuales, y un PID iniciado desde la web se frena al perder la conexión. Iniciado con el botón o el MicroStart, el PID no depende del Wi-Fi.</p>
+  <pre>{"t":"mot","l":120,"r":-80}
+{"t":"cfg","kp":0.03}
+{"t":"stop"}</pre>
 </section>
 
 <section id="estado">
@@ -213,9 +214,10 @@
   <ol class="steps">
     <li class="done"><span><strong>Revisión 0.1.</strong> Primera arquitectura electrónica y mapa de GPIO.</span></li>
     <li class="done"><span><strong>Revisión 0.2.</strong> Matek MICRO BEC, alimentación 3S / 5 V / 3,3 V, barra curva definida y esquemáticos exportados.</span></li>
-    <li class="done"><span>Firmware Wi-Fi y aplicación de telemetría conectados al ESP32-C3 real.</span></li>
+    <li class="done"><span>Los 12 sensores funcionando con la librería <code>QTRMux</code>.</span></li>
+    <li class="done"><span>Interfaz web en el robot para pruebas y ajuste del PID en tiempo real.</span></li>
     <li><span>Fabricar y montar la placa principal y la barra de sensores.</span></li>
-    <li><span>Calibrar sensores y ajustar el PID en pista con la telemetría.</span></li>
+    <li><span>Ajustar el PID en pista desde la interfaz web.</span></li>
   </ol>
 </section>
 
@@ -224,8 +226,7 @@
   <div class="files">
     <a href="https://srampello.github.io/RMP_Deimonyag/">Visor interactivo de esquemáticos <span>Web</span></a>
     <a href="https://github.com/srampello/RMP_Deimonyag/blob/master/docs/CONEXIONES.md">Conexiones <span>Markdown</span></a>
-    <a href="https://github.com/srampello/RMP_Deimonyag/blob/master/docs/PROTOCOL_WIFI.md">Protocolo Wi-Fi <span>Markdown</span></a>
-    <a href="https://github.com/srampello/RMP_Deimonyag/tree/master/telemetry">Aplicación de telemetría <span>Python</span></a>
+    <a href="https://github.com/srampello/RMP_Deimonyag/tree/master/firmware/Deimonyag_Web">Interfaz web y protocolo <span>Firmware</span></a>
     <a href="https://github.com/srampello/RMP_Deimonyag/blob/master/CHANGELOG.md">Historial de cambios <span>Markdown</span></a>
   </div>
 </section>

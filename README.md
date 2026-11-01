@@ -48,23 +48,21 @@ Repositorio principal de **Deimonyag**, robot seguidor de línea de competición
 | 20 | MicroStart |
 | 21 | Botón de estrategia |
 
-## Interfaz PC — control y telemetría
+## Firmware
 
-La carpeta [`telemetry/`](telemetry/) contiene la aplicación Python para:
+### Interfaz web — [`firmware/Deimonyag_Web/`](firmware/Deimonyag_Web/)
 
-- realizar pruebas de banco de motores, EDF27 y sensores;
-- visualizar telemetría de sensores y PID durante una carrera en modo solo lectura;
-- guardar archivos CSV de telemetría para análisis posterior.
+El robot crea la red WiFi `DEIMONYAG` (contraseña `deimonyag`) y sirve la interfaz en **http://192.168.4.1**, desde cualquier navegador de PC o celular. Tiene pestañas para:
 
-La aplicación ya dispone de backend Wi‑Fi real por WebSocket para el ESP32-C3 y mantiene el simulador como alternativa de desarrollo.
+- **Motores:** cada motor y la succión EDF27.
+- **Sensores:** lectura en vivo y calibración.
+- **Botón** y LED.
+- **MicroStart.**
+- **PID en tiempo real:** parámetros en vivo, gráficos y guardado en flash.
 
-## Firmware Wi‑Fi
+### Test de sensores — [`firmware/tests/05_Test_Sensores/`](firmware/tests/05_Test_Sensores/)
 
-La primera integración ESP32 ↔ PC se encuentra en:
-
-[`firmware/Deimonyag_WiFi/`](firmware/Deimonyag_WiFi/)
-
-El ESP32 crea el AP `DEIMONYAG` y expone el WebSocket en `ws://192.168.4.1:81`.
+Lectura de los 12 QRE1113GR por Monitor Serie e incluye la librería `QTRMux`.
 
 ## Hardware — revisión 2026-09-12
 
@@ -77,8 +75,7 @@ Los esquemáticos de **Main Board** y **barra de 12 sensores** se visualizan des
 
 - [Conexiones actuales](docs/CONEXIONES.md)
 - [Hardware](docs/HARDWARE.md)
-- [Interfaz PC](telemetry/README.md)
-- [Protocolo Wi‑Fi](docs/PROTOCOL_WIFI.md)
+- [Interfaz web y protocolo](firmware/Deimonyag_Web/README.md)
 - [Changelog](CHANGELOG.md)
 - [Visor interactivo](https://srampello.github.io/RMP_Deimonyag/)
 
@@ -93,13 +90,12 @@ RMP_Deimonyag/
 │   └── previews/
 ├── images/
 ├── firmware/
-│   └── Deimonyag_WiFi/
-├── telemetry/
-│   ├── pages/
-│   └── logs/
+│   ├── Deimonyag_Web/
+│   └── tests/
+│       └── 05_Test_Sensores/
 ├── cad/
 ├── bom/
 └── media/
 ```
 
-El objetivo es mantener en un único repositorio los esquemáticos, documentación, firmware, CAD, BOM, telemetría y archivos de fabricación de Deimonyag.
+El objetivo es mantener en un único repositorio los esquemáticos, documentación, firmware, CAD, BOM y archivos de fabricación de Deimonyag.
