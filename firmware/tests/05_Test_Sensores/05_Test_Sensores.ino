@@ -12,6 +12,8 @@
 //   m  -> mostrar min/max de calibracion
 //   x  -> borrar calibracion
 //   t  -> medir tiempo de lectura
+//   d  -> diagnostico de orden: tapar/acercar un sensor por vez
+//         y ver que Q reacciona (sirve para corregir muxChannels)
 //   h  -> ayuda
 // El boton de estrategia (GPIO21) tambien dispara la calibracion.
 //
@@ -56,7 +58,7 @@ const int BTN_1 = 21;          // boton de estrategia
 #define PERIODO_PRINT_MS     50
 #define TIEMPO_CALIBRACION   5000
 
-enum Modo { MODO_RAW, MODO_CAL, MODO_LINEA };
+enum Modo { MODO_RAW, MODO_CAL, MODO_LINEA, MODO_DIAG };
 Modo modo = MODO_RAW;
 unsigned long ultimoPrint = 0;
 
@@ -105,6 +107,11 @@ void loop() {
       position = qtr.readLine(sensorValues, TIPO_LINEA);
       imprimirLinea();
       break;
+
+    case MODO_DIAG:
+      qtr.read(sensorValues);
+      imprimirDiagnostico();
+      break;
   }
 }
 
@@ -120,6 +127,9 @@ void leerComandos() {
       case 'm': case 'M': imprimirCalibracion();     break;
       case 'x': case 'X': qtr.resetCalibration(); Serial.println(F("> Calibracion borrada")); break;
       case 't': case 'T': medirTiempo();             break;
+      case 'd': case 'D': modo = MODO_DIAG;
+        Serial.println(F("> Modo DIAGNOSTICO: acercar algo blanco a UN sensor por vez, de izq a der"));
+        break;
       case 'h': case 'H': case '?': ayuda();         break;
       default: break;   // ignora \r, \n, etc.
     }
@@ -128,7 +138,7 @@ void leerComandos() {
 
 void ayuda() {
   Serial.println(F("Comandos: r=crudo  k=calibrado  l=linea  c=calibrar"));
-  Serial.println(F("          m=min/max  x=borrar cal  t=tiempo  h=ayuda"));
+  Serial.println(F("          m=min/max  x=borrar cal  t=tiempo  d=diagnostico  h=ayuda"));
   Serial.print  (F("Tipo de linea: "));
   Serial.println(TIPO_LINEA ? F("BLANCA") : F("NEGRA"));
 }
@@ -187,6 +197,45 @@ void imprimirCalibracion() {
     snprintf(buf, sizeof(buf), "Q%-5d %5u %5u %5d", i + 1, mn, mx, (int)mx - (int)mn);
     Serial.println(buf);
   }
+}
+
+// Diagnostico: muestra que sensores bajaron claramente respecto al resto.
+// Si al tapar UN sensor reaccionan dos Q a la vez (ej. Q1 y Q3),
+// hay una linea S0..S3 cortada o en corto, no es un tema de orden.
+void imprimirDiagnostico() {
+  // mediana aproximada: ordenar copia
+  uint16_t tmp[NUM_SENSORS];
+  memcpy(tmp, sensorValues, sizeof(tmp));
+  for (uint8_t i = 1; i < NUM_SENSORS; i++) {
+    uint16_t v = tmp[i]; int8_t j = i - 1;
+    while (j >= 0 && tmp[j] > v) { tmp[j + 1] = tmp[j]; j--; }
+    tmp[j + 1] = v;
+  }
+  uint16_t mediana = tmp[NUM_SENSORS / 2];
+  uint16_t umbral  = mediana * 7 / 10;      // 30% por debajo del resto
+
+  // Mapa: '#' = reacciona, '.' = no
+  Serial.print(F("Q1["));
+  bool alguno = false;
+  for (uint8_t i = 0; i < NUM_SENSORS; i++) {
+    bool r = sensorValues[i] < umbral;
+    Serial.print(r ? '#' : '.');
+    alguno |= r;
+  }
+  Serial.print(F("]Q12  "));
+
+  if (!alguno) {
+    Serial.println(F("(ninguno)"));
+    return;
+  }
+  for (uint8_t i = 0; i < NUM_SENSORS; i++) {
+    if (sensorValues[i] < umbral) {
+      Serial.print('Q'); Serial.print(i + 1);
+      Serial.print(F("(Y")); Serial.print(muxChannels[i]);
+      Serial.print(F(")=")); Serial.print(sensorValues[i]); Serial.print(F("  "));
+    }
+  }
+  Serial.println();
 }
 
 bool avisarSiNoCalibrado() {
