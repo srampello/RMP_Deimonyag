@@ -37,11 +37,23 @@ Documento de referencia rápida para las conexiones actualmente definidas.
 - 12 × QRE1113GR.
 - CD74HC4067 alimentado a 3,3 V.
 - EN del CD74HC4067 a GND para dejarlo siempre habilitado.
-- Canales Y0–Y11 usados para los sensores.
-- Y12–Y15 a GND si permanecen sin uso.
+- Esquemático: canales Y0–Y11 para los sensores, Y12–Y15 a GND.
+- **Placa fabricada (verificado 2026-10-31):** los sensores están en **Y2–Y13**
+  (Q1 = Y2 … Q12 = Y13). Y0 e Y1 leen ~20 (a GND). El firmware usa
+  `muxChannels = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}`.
+  Pendiente: corregir el esquemático/PCB en EasyEDA para la próxima revisión.
 - Salida común SIG del MUX hacia GPIO4.
 - Q1 = extremo izquierdo.
 - Q12 = extremo derecho.
+
+### Emisores IR
+
+- Hay 6 resistencias de 150 Ω para 12 LEDs: los emisores van **de a pares en serie**
+  (+5 V → 150 Ω → LED Qn → LED Qn+1 → GND).
+- Si un LED del par se abre (mal soldado, girado o dañado), se apagan los dos.
+- Valores normales medidos: ánodo del primer LED ≈ 2,4 V, del segundo ≈ 1,2 V.
+- Falla encontrada 2026-10-31: par Q11–Q12 con 4 V / 3 V (sin corriente), por Q12.
+  Corregido; los 12 sensores funcionan.
 
 ### Cada QRE1113GR
 

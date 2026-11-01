@@ -2,6 +2,19 @@
 
 Todos los cambios relevantes del proyecto Deimonyag se documentan en este archivo.
 
+## [0.3] - 2026-10-31
+
+### Agregado
+- `firmware/tests/05_Test_Sensores`: lectura de los 12 QRE1113GR por Monitor Serie
+  (crudo, calibrado, posición de línea, calibración, tiempo y diagnóstico de canales).
+- Librería `QTRMux`: misma API y lógica que QTRSensors (base Holdmoss) para sensores
+  leídos a través del CD74HC4067.
+
+### Verificado en placa
+- Los 12 sensores funcionan con el firmware de prueba.
+- Mapeo real del mux: Q1–Q12 en Y2–Y13 (difiere del esquemático, que indica Y0–Y11).
+- Emisores en serie de a pares: una falla en Q12 apagaba también Q11. Corregido.
+
 ## [0.2] - 2026-09-12
 
 ### Cambiado
