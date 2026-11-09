@@ -1,69 +1,75 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Visor interactivo de los esquemáticos de Deimonyag.">
-<title>Deimonyag · Esquemáticos</title>
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="branding.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Visor de los esquemáticos de Deimonyag: placa principal y barra de 12 sensores.">
+  <title>Esquemáticos · DEIMONYAG — RMP Robotics</title>
+  <link rel="icon" href="/RMP/assets/images/rmp-logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/RMP/assets/css/styles.css?v=d388b03b">
 </head>
 <body>
-<header class="site-header">
-  <nav class="nav">
-    <a class="brand" href="https://srampello.github.io/RMP/" aria-label="RMP Robotics: todos los robots"><img class="brand-logo" src="images/logos/RMP%20robotics.png" alt="RMP Robotics"></a>
-    <div class="nav-links">
-      <a href="index.html">Inicio</a>
-      <a href="robot.html">El robot</a>
-      <a class="active" href="schematics.html">Esquemáticos</a>
-      <a href="https://srampello.github.io/RMP/robots/deimonyag/">Ficha técnica</a>
-      <a href="https://github.com/srampello/RMP_Deimonyag">GitHub</a>
-    </div>
-  </nav>
-</header>
+  <a class="skip" href="#contenido">Ir al contenido</a>
 
-<main>
-  <section class="viewer-hero">
-    <img class="viewer-logo" src="images/logos/deimonyag-logo.png" alt="Logo Deimonyag">
-    <div class="eyebrow">Hardware · revisión 2026-09-12</div>
-    <h1 class="section-title">Esquemáticos interactivos</h1>
-    <p class="section-copy">Explorá la Main Board y la barra de 12 sensores directamente desde el navegador. Usá la rueda del mouse para hacer zoom, arrastrá para desplazarte y hacé doble clic para volver a la vista inicial.</p>
-  </section>
+  <header class="bar">
+    <a href="/RMP/"><img src="/RMP/assets/images/rmp-logo.webp" alt="" width="26" height="26"> RMP Robotics</a>
+    <a class="bar-title" href="./">DEIMONYAG</a>
+    <nav class="bar-nav" aria-label="Secciones">
+      <a href="./#informe">Informe técnico</a>
+      <a href="schematics.html" aria-current="page">Esquemáticos</a>
+      <a class="gh" href="https://github.com/srampello/RMP_Deimonyag" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
 
-  <section class="viewer-shell">
-    <div class="viewer-tabs">
-      <button type="button" data-view="main" class="active">Main Board</button>
-      <button type="button" data-view="sensor">Barra · 12 sensores</button>
-    </div>
-    <p class="hint" id="hint">Cargando esquemático…</p>
-    <section class="viewer">
-      <div class="toolbar">
-        <button type="button" id="minus">−</button>
-        <button type="button" id="reset">100%</button>
-        <button type="button" id="plus">+</button>
+  <main id="contenido">
+    <div class="page-head">
+      <div>
+        <p class="ver">Revisión de hardware 0.2 · 12 de septiembre de 2026</p>
+        <h1>Esquemáticos</h1>
+        <p>La placa principal y la barra de 12 sensores, tal como salen de EasyEDA. Acercá con la rueda del mouse o con dos dedos y arrastrá para recorrerlos.</p>
       </div>
-      <div id="svg-stage" class="svg-stage">
-        <img id="svg-image" alt="Esquemático de Deimonyag">
-        <div id="svg-error" class="error hidden">No se pudo cargar esta vista dentro del visor.</div>
+      <img src="/RMP/assets/images/deimonyag.webp" alt="" width="96" height="96">
+    </div>
+
+    <section class="sch" data-sch aria-label="Visor de esquemáticos">
+      <div class="sch-tools">
+        <div class="sch-tabs" role="tablist" aria-label="Esquemático">
+          <button type="button" role="tab" aria-selected="true" data-src="hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg" data-label="Esquemático de la placa principal de Deimonyag">Placa principal</button>
+          <button type="button" role="tab" aria-selected="false" data-src="hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg" data-label="Esquemático de la barra de 12 sensores de Deimonyag">Barra de 12 sensores</button>
+        </div>
+        <div class="sch-zoom">
+          <button type="button" data-zoom="out" aria-label="Alejar">−</button>
+          <output data-zoom-level aria-live="polite">100 %</output>
+          <button type="button" data-zoom="in" aria-label="Acercar">+</button>
+          <button type="button" data-zoom="fit">Encuadrar</button>
+        </div>
+      </div>
+      <div class="sch-stage" tabindex="0" aria-label="Esquemático. Flechas para mover, + y − para el zoom, 0 para encuadrar.">
+        <img class="sch-sheet" alt="" draggable="false">
+      </div>
+      <p class="sch-status" data-sch-status aria-live="polite"></p>
+    </section>
+
+    <section class="page-links" aria-labelledby="sch-files">
+      <div class="rule-head"><h2 id="sch-files" style="font-size:inherit">Archivos</h2><span>Para abrir o descargar</span></div>
+      <div class="files">
+        <a href="hardware/previews/SCH_Deimonyag_1-Main_Board_2026-09-12.svg">Placa principal <span>SVG</span></a>
+        <a href="hardware/previews/SCH_Deimonyag_2-12_Sensor_2026-09-12.svg">Barra de 12 sensores <span>SVG</span></a>
+        <a href="https://github.com/srampello/RMP_Deimonyag/tree/master/hardware">Carpeta de hardware en GitHub <span>EasyEDA</span></a>
+        <a href="./#hardware">Hardware explicado en el informe <span>Informe</span></a>
       </div>
     </section>
-  </section>
+  </main>
 
-  <section class="editorial center" style="padding-top:38px">
-    <div class="eyebrow">Documentación</div>
-    <h2 class="section-title">¿Querés ver cómo se integra todo?</h2>
-    <p class="section-copy">La página del robot explica alimentación, GPIO, sensores, tracción, succión, firmware e interfaz web.</p>
-    <div class="actions"><a class="btn primary" href="robot.html">Ver información del robot</a><a class="btn" href="https://github.com/srampello/RMP_Deimonyag/tree/master/hardware">Hardware en GitHub</a></div>
-  </section>
-</main>
+  <footer class="site-foot robot-foot">
+    <span>DEIMONYAG es un proyecto de <a href="/RMP/">RMP Robotics</a></span>
+    <nav aria-label="Otros robots"><a href="/RMP_unicum/">UNICUM</a><a href="/RMP_Lea_Paredes/">LEA_PAREDES</a><a href="/AUS_KIM/">AUS_KIM</a></nav>
+  </footer>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <a class="footer-brand" href="index.html"><img class="footer-logo" src="images/logos/RMP%20robotics.png" alt="RMP Robotics"></a>
-    <div class="footer-copy"><strong>Deimonyag</strong><span>HARDWARE VIEWER</span></div>
-  </div>
-</footer>
-
-<script src="schematics.js"></script>
+  <script src="/RMP/assets/js/schematic-viewer.js?v=1234f069" defer></script>
 </body>
 </html>
